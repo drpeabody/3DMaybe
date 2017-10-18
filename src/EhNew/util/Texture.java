@@ -1,0 +1,104 @@
+package EhNew.util;
+
+import EhNew.Engine;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import javax.imageio.ImageIO;
+import org.lwjgl.BufferUtils;
+import static org.lwjgl.opengl.GL11.*;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
+
+/**
+ * @since 28 Jan, 2016
+ * @author Abhishek
+ */
+public class Texture {
+    int id, target, unit, numComp;
+    BufferedImage image;
+    ByteBuffer data;
+    int height, width;
+    
+    public Texture(int TextureTarget, int textureUnit, String fileName){
+        id = -1;
+        unit = textureUnit;
+        target = TextureTarget;
+        image = null;
+        data = null;
+        numComp = 0;
+        if(fileName == null) fileName = "null.png";
+        try{
+            image = ImageIO.read(Engine.class.getResourceAsStream(fileName));
+        } catch (IOException | IllegalArgumentException ex) {
+            try {
+                System.out.println("Specified TextureFile not Found, Reading default Texture");
+                image = ImageIO.read(Engine.class.getResourceAsStream("null.png"));
+            } catch (IOException ex1) {}
+        }
+        height = image.getHeight();
+        width = image.getWidth();
+    }
+    public Texture(int TextureTarget, int textureUnit, BufferedImage b){
+        id = -1;
+        unit = textureUnit;
+        target = TextureTarget;
+        numComp = 0;
+        if(b == null){
+            throw new NullPointerException("Buffer cannot be Null");
+        }
+        image = b;
+        height = b.getHeight();
+        width = b.getWidth();
+        data = null;
+    }
+    
+    public void loadFromImage() {
+        if(image == null) throw new IllegalStateException("Attempting to load Texture from null Image.");
+        numComp = image.getColorModel().getNumComponents();
+        width = image.getWidth();
+        height = image.getHeight();
+        byte[] b = new byte[numComp * height * width];
+        image.getRaster().getDataElements(0, 0, width, height, b);
+        data = BufferUtils.createByteBuffer(b.length).put(b);
+        data.flip();
+    }
+    
+    //This function needs to be optimised for multiple runs
+    public void bufferData(){
+        GL13.glActiveTexture(unit);
+        if(id == -1){
+            id = glGenTextures();
+            glBindTexture(target, id);
+            glTexImage2D(target, 0, (numComp == 3) ? GL_RGB : GL_RGBA, width, height, 0, (numComp == 3) ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, data);
+            glTexParameterf(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameterf(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        }
+        else{
+            glBindTexture(target, id);
+            glTexSubImage2D(target, 0, 0, 0, width, height, (numComp == 3)?GL_RGB:GL_RGBA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, data);
+            if(glGetError() == 1281){
+                glTexImage2D(target, 0,  (numComp == 3)?GL_RGB:GL_RGBA, width, height, 0, (numComp == 3)?GL_RGB:GL_RGBA, GL_UNSIGNED_BYTE, data);
+            }
+        }
+    }
+    public void changeImageTo(BufferedImage b){
+        image = b;
+    }
+    
+    public void destroy(){
+        glDeleteTextures(id);
+    }
+    public void bind(){
+        GL13.glActiveTexture(unit);
+        glBindTexture(target, id);
+    }
+    public void unBind(){
+        GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        glBindTexture(target, -1);
+    }
+    
+    public void changeBindingTo(int textureUnit){
+        unit = textureUnit;
+    }
+}
