@@ -12,7 +12,6 @@ import static org.lwjgl.opengl.GL20.*;
  */
 public class FactoryShader extends Shader{
     public static final String UNIFORM_TRANSLATE_MATRIX = "trans";
-    public static final String ATTRIB_INSTANCE_TRANSFORM_MATRIX = "instTransMat";
     public static final String UNIFORM_POJECTION_MATRIX = "proj";
     public static final String UNIFORM_CAM_MATRIX = "cam";
     public static final String UNIFORM_CAM_LOCATION = "WorldEyePos0";

@@ -14,6 +14,7 @@ import org.lwjgl.glfw.GLFW;
 import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.opengl.GL11.*;
+import org.lwjgl.opengl.GL20;
 
 /**
  * @since 20 Jan, 2016
@@ -86,7 +87,7 @@ public class Engine {
                 glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
                 glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
                 currshader.init();
-                currshader.loadShader();
+                currshader.loadShader();                
             }, "Renderer");
             renderer.setTickDelay(1000/fps);
             renderer.runOnce();

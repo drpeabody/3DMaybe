@@ -42,9 +42,6 @@ public abstract class Shader {
     public int getUniformLocation(String s){
         return glGetUniformLocation(programID, s);
     }
-    public int getAttribLocation(String s){
-        return glGetAttribLocation(programID, s);
-    }
     public void finalizeShader() {
         if(programID == -1) throw new IllegalStateException("Processor not Initted.");
         shaders.stream().map((i) -> {

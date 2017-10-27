@@ -80,7 +80,7 @@ public class OBJLoader {
         }
         
         return m;
-    }
+    }     
     public static class Mesh {
         ArrayList<Vertex> data;
         ArrayList<Integer> indices;
