@@ -4,6 +4,7 @@ import EhNew.DrawableEntity;
 import EhNew.Engine;
 import EhNew.math.Vec2;
 import EhNew.math.Vec3;
+import EhNew.shaders.Shader;
 import EhNew.util.Texture;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -31,21 +32,23 @@ public class Terrain extends DrawableEntity{
     protected Vec3 startPos, cellSize;
     protected Vec2 TextureScale;
 
-    public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, Vec2 TexScale) {
+    public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, Vec2 TexScale, Shader s) {
+        super(s);
         this.heightMap = highetmap;
         this.cellSize = cellSize;
         this.startPos = startPos;
-        tex = new Texture(GL_TEXTURE_2D, GL13.GL_TEXTURE0, "null.png");
-        texNormal = new Texture(GL_TEXTURE_2D, GL13.GL_TEXTURE1,"nullN.png");
+        tex = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), "null.png");
+        texNormal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(),"nullN.png");
         TextureScale = TexScale;
     }
-    public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, BufferedImage texture, BufferedImage normal, Vec2 texScale) {
+    public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, BufferedImage texture, BufferedImage normal, Vec2 texScale, Shader s) {
+        super(s);
         this.heightMap = highetmap;
         this.cellSize = cellSize;
         TextureScale = texScale;
         this.startPos = startPos;
-        tex = new Texture(GL_TEXTURE_2D, GL13.GL_TEXTURE0, texture);
-        texNormal = new Texture(GL_TEXTURE_2D, GL13.GL_TEXTURE1, normal);
+        tex = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), texture);
+        texNormal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), normal);
     }
 
     @Override

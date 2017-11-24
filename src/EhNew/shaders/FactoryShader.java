@@ -4,6 +4,7 @@ import EhNew.data.DirectionalLight;
 import EhNew.data.PointLight;
 import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL13;
 import static org.lwjgl.opengl.GL20.*;
 
 /**
@@ -11,25 +12,30 @@ import static org.lwjgl.opengl.GL20.*;
  * @author Abhishek
  */
 public class FactoryShader extends Shader{
-    public static final String UNIFORM_TRANSLATE_MATRIX = "trans";
-    public static final String UNIFORM_POJECTION_MATRIX = "proj";
-    public static final String UNIFORM_CAM_MATRIX = "cam";
-    public static final String UNIFORM_CAM_LOCATION = "WorldEyePos0";
-    public static final String UNIFORM_DIRECTIONAL_LIGHT = "dirLight";
-    public static final String UNIFORM_LIGHT_AMBIENT_STRENGTH = ".AmbiInten";
-    public static final String UNIFORM_LIGHT_COLOR = ".light.color";
-    public static final String UNIFORM_LIGHT_DIR = ".dir";
-    public static final String UNIFORM_LIGHT_POSITION = ".pos";
-    public static final String UNIFORM_LIGHT_DIFFUSE_STRENGTH = ".light.DiffInten";
-    public static final String UNIFORM_LIGHT_SPECULAR_STRENGTH = ".light.MatSpecInten";
-    public static final String UNIFORM_LIGHT_SPECULAR_POWER = ".light.SpecPower";
-    public static final String UNIFORM_LIGHT_CUTOFF = ".cutOff";
-    public static final String UNIFORM_LIGHT_FALLOFF = ".fallOff";
-    public static final String UNIFORM_NUMBER_OF_POINTLIGHTS = "numLights";
-    public static final String UNIFORM_POINTLIGHT_ARRAY = "lights";
-    public static final String UNIFORM_TEXTURE_0 = "diffuseMap";
-    public static final String UNIFORM_TEXTURE_1 = "normalMap";
+    public final String UNIFORM_TRANSLATE_MATRIX = "trans";
+    public final String UNIFORM_POJECTION_MATRIX = "proj";
+    public final String UNIFORM_CAM_MATRIX = "cam";
+    public final String UNIFORM_CAM_LOCATION = "WorldEyePos0";
+    public final String UNIFORM_DIRECTIONAL_LIGHT = "dirLight";
+    public final String UNIFORM_LIGHT_AMBIENT_STRENGTH = ".AmbiInten";
+    public final String UNIFORM_LIGHT_COLOR = ".light.color";
+    public final String UNIFORM_LIGHT_DIR = ".dir";
+    public final String UNIFORM_LIGHT_POSITION = ".pos";
+    public final String UNIFORM_LIGHT_DIFFUSE_STRENGTH = ".light.DiffInten";
+    public final String UNIFORM_LIGHT_SPECULAR_STRENGTH = ".light.MatSpecInten";
+    public final String UNIFORM_LIGHT_SPECULAR_POWER = ".light.SpecPower";
+    public final String UNIFORM_LIGHT_CUTOFF = ".cutOff";
+    public final String UNIFORM_LIGHT_FALLOFF = ".fallOff";
+    public final String UNIFORM_NUMBER_OF_POINTLIGHTS = "numLights";
+    public final String UNIFORM_POINTLIGHT_ARRAY = "lights";
+    public final String UNIFORM_TEXTURE_DIFFUSEMAP = "diffuseMap";
+    public final String UNIFORM_TEXTURE_NORMALMAP = "normalMap";
+    public final String UNIFORM_TEXTURE_INSTANCE_TRANSFORM_MAP = "instTransMatrices";
+    public final String UNIFORM_INSTANCE_TRANSFORM_MAP_SIZE = "instTransMapSize";
     
+    public final int TEXTURE_UNIT_DIFFURE_MAP = 0;
+    public final int TEXTURE_UNIT_NORMAL_MAP = 1;
+    public final int TEXTURE_UNIT_INSTANCE_TRANSFORM_MAP = 2;
     
     int numPointLights;
     
@@ -57,8 +63,9 @@ public class FactoryShader extends Shader{
         super.finalizeShader();
         camMatLoc = glGetUniformLocation(programID, UNIFORM_CAM_MATRIX);
         camLocLoc = glGetUniformLocation(programID, UNIFORM_CAM_LOCATION);
-        glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_0), 0);
-        glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_1), 1);
+        glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_DIFFUSEMAP), TEXTURE_UNIT_DIFFURE_MAP);
+        glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_NORMALMAP), TEXTURE_UNIT_NORMAL_MAP);
+        glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_INSTANCE_TRANSFORM_MAP), TEXTURE_UNIT_INSTANCE_TRANSFORM_MAP);
     }
     
     public void updatePointLightProperty(PointLight l, String property){
@@ -137,12 +144,12 @@ public class FactoryShader extends Shader{
     }
     @Override
     public void updateProjection(float[] projMat){
-        glUniformMatrix4fv(getUniformLocation(FactoryShader.UNIFORM_POJECTION_MATRIX),
+        glUniformMatrix4fv(getUniformLocation(UNIFORM_POJECTION_MATRIX),
                 true, projMat);
     }
     @Override
     public void updateTransformation(float[] mat){
-        glUniformMatrix4fv(getUniformLocation(FactoryShader.UNIFORM_TRANSLATE_MATRIX), 
+        glUniformMatrix4fv(getUniformLocation(UNIFORM_TRANSLATE_MATRIX), 
                 true, mat);
     }
     public void updateCameraMatrix(float[] camMat){
@@ -151,5 +158,18 @@ public class FactoryShader extends Shader{
     public void updateCameraLocation(float[] camLoc){
         glUniform3fv(camLocLoc, camLoc);
     }
-
+    
+    
+    @Override
+    public int getDiffuseMapTextureUnit(){
+        return GL13.GL_TEXTURE0;
+    }
+    @Override
+    public int getNormalMapTextureUnit(){
+        return GL13.GL_TEXTURE1;
+    }
+    @Override
+    public int getInstanceTransformMapTextureUnit(){
+        return GL13.GL_TEXTURE2;
+    }
 }

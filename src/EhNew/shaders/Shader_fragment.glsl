@@ -69,7 +69,7 @@ vec4 calcPointLight(int idx, vec3 normal){
 void main(){
     vec3 normal = CalcBumpedNormal();
     vec4 lighting = calcDirectionalLight(normal);
-
+    
     for(int i = 0; i < numLights; i++){
         lighting += calcPointLight(i, normal);
     }

@@ -76,6 +76,10 @@ public abstract class Shader {
     public abstract void loadShader();
     public abstract void updateTransformation(float[] mat);
     public abstract void updateProjection(float[] mat);
-    //Since shader ishandled by Engine, it assumes some defualt functionality.
+    //Since shader is handled by Engine, it assumes some defualt functionality.
     //If your shader doesn't use this functionality, leave the function empty.
+    
+    public abstract int getDiffuseMapTextureUnit();
+    public abstract int getNormalMapTextureUnit();
+    public abstract int getInstanceTransformMapTextureUnit();
 }

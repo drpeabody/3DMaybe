@@ -1,6 +1,7 @@
 package EhNew.data;
 
 import EhNew.DrawableEntity;
+import EhNew.shaders.Shader;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -8,8 +9,8 @@ import org.lwjgl.opengl.GL11;
  */
 public class Arrow extends DrawableEntity{
 
-    public Arrow(){
-        super();
+    public Arrow(Shader s){
+        super(s);
     }
     
     @Override

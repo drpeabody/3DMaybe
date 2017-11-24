@@ -1,10 +1,10 @@
 package EhNew.geom;
 
 import EhNew.DrawableEntity;
+import EhNew.shaders.Shader;
 import EhNew.util.Texture;
 import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import org.lwjgl.opengl.GL13;
 
 /**
  * @since 22 Jan, 2016
@@ -13,10 +13,10 @@ import org.lwjgl.opengl.GL13;
 public class Cube extends DrawableEntity{
     Texture t, normal;
     
-    public Cube(){
-        super();
-        t = new Texture(GL_TEXTURE_2D, GL13.GL_TEXTURE0, "null.png");
-        normal = new Texture(GL_TEXTURE_2D, GL13.GL_TEXTURE1,"nullN.png");
+    public Cube(Shader s){
+        super(s);
+        t = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), "null.png");
+        normal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(),"nullN.png");
     }
     
     @Override

@@ -8,40 +8,31 @@ import org.lwjgl.BufferUtils;
  * @author Abhishek
  */
 public class Matrix4f {
-    FloatBuffer m;
-    static FloatBuffer identity = BufferUtils.createFloatBuffer(16)
-                .put(1.0f).put(0.0f).put(0.0f).put(0.0f)
-                .put(0.0f).put(1.0f).put(0.0f).put(0.0f)
-                .put(0.0f).put(0.0f).put(1.0f).put(0.0f)
-                .put(0.0f).put(0.0f).put(0.0f).put(1.0f);
+    float[] m;
+    static final float identity[] = new float[]{
+            1f, 0f, 0f, 0f,
+            0f, 1f, 0f, 0f,
+            0f, 0f, 1f, 0f,
+            0f, 0f, 0f, 1f};
+    //Keeping the identity Matrix in a buffer is more efficient than keeping an array and constructing a buuffer.
     
     public Matrix4f(){
-        m = BufferUtils.createFloatBuffer(16);
+        m = new float[]{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
     }
     public Matrix4f(Vec4 v1, Vec4 v2, Vec4 v3, Vec4 v4){
-        m = BufferUtils.createFloatBuffer(16)
-                .put(0.0f).put(0.0f).put(0.0f).put(0.0f)
-                .put(0.0f).put(0.0f).put(0.0f).put(0.0f)
-                .put(0.0f).put(0.0f).put(0.0f).put(0.0f)
-                .put(0.0f).put(0.0f).put(0.0f).put(0.0f);
+        m = new float[]{v1.r, v1.g, v1.b, v1.a, v2.r, v2.g, v2.b, v2.a, v3.r, v3.g, v3.b, v3.a, v4.r, v4.g, v4.b, v4.a};
     }
     
-    public FloatBuffer getBuffer(){
+    public float[] getArray(){
         return m;
     }
-    public Matrix4f multiply(Matrix4f v){
-        Matrix4f r = new Matrix4f();
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                r.m.put((4*i)+j, m.get(4*i) * v.m.get(j)
-                        + m.get(4*i + 1) * v.m.get(4+j)
-                        + m.get(4*i + 2) * v.m.get(8+j)
-                        + m.get(4*i + 3) * v.m.get(12+j));
-            }
-        }
-        return r;
+    public FloatBuffer getBuffer(){
+        FloatBuffer b = BufferUtils.createFloatBuffer(16);
+        return (FloatBuffer)b.put(m).flip();
     }
     public static FloatBuffer getIndentityBuffer(){
-        return identity;
+        FloatBuffer f = BufferUtils.createFloatBuffer(16).put(identity);
+        f.flip();
+        return f;
     }
 }

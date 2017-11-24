@@ -70,6 +70,7 @@ public class Main {
         
         public LevelSample(Engine e){
             super(e);
+            f = (FactoryShader)engine.getShader();
             engine.getTextFactory().setSize(135);
             engine.getTextFactory().setColor(new Vec4(0.8f,0.5f,1f,1f));
             h = new PictureBox(new Vec2(), new Vec2(0.5f,0.5f), 
@@ -77,18 +78,17 @@ public class Main {
             hs = new HUDShader();
             hud = new HUDBuffer(2, GL15.GL_DYNAMIC_DRAW);
             pb = new ProgressBar(new Vec2(-0.9f, -0.9f), new Vec2(0, -0.8f), new Vec4(0f, 0f, 0.5f, 0.5f), 0f, 1f, null);
-            ter = new Terrain(null, new Vec3(3f, 0.005f, 3f), new Vec3(-6f, -4f, -1f), new Vec2(0.05f, 0.05f));
-            s1 = new Sphere();
-            s2 = new Sphere();
-            a = new Arrow();
-            sc2 = new Cube();
+            ter = new Terrain(null, new Vec3(3f, 0.005f, 3f), new Vec3(-6f, -4f, -1f), new Vec2(0.05f, 0.05f), f);
+            s1 = new Sphere(f);
+            s2 = new Sphere(f);
+            a = new Arrow(f);
+            sc2 = new Cube(f);
             l = new PointLight();
             m = new PointLight();
         }
 
         @Override
         public void load() {
-            f = (FactoryShader)engine.getShader();
             hud.load();
             pb.load(hud);
             hs.init();
@@ -150,7 +150,7 @@ public class Main {
             m.setIdx(f.addPointLight(m));
             f.finalizePointLights();
             f.updateCameraMatrix(engine.getCamera().calculatecameraMatrix());
-            f.updateProjection(engine.getTransformer().calculateProjection());
+            f.updateProjection(engine.getProjeTransform().calculateProjection());
             f.updateCameraLocation(engine.getCamera().getPos().getArray());
             
             glClearColor(0.2f, 0.2f, 0.4f, 1.0f);
@@ -170,8 +170,8 @@ public class Main {
             engine.draw(a);
             engine.draw(ter);
             
-            f.updatePointLightProperty(l, FactoryShader.UNIFORM_LIGHT_POSITION);
-            f.updatePointLightProperty(m, FactoryShader.UNIFORM_LIGHT_POSITION);
+            f.updatePointLightProperty(l, f.UNIFORM_LIGHT_POSITION);
+            f.updatePointLightProperty(m, f.UNIFORM_LIGHT_POSITION);
             
             engine.getCamera().updateCameraMatrices(f);
             

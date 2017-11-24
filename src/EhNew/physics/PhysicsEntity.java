@@ -4,6 +4,7 @@ import EhNew.DrawableEntity;
 import EhNew.geom.Vertex;
 import EhNew.math.Vec2;
 import EhNew.math.Vec3;
+import EhNew.shaders.Shader;
 import EhNew.util.OBJLoader;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
@@ -22,6 +23,10 @@ import static org.lwjgl.opengl.GL15.glGenBuffers;
 public abstract class PhysicsEntity extends DrawableEntity{
     HitBox hitBox;
     float mass;
+    
+    public PhysicsEntity(Shader s){
+        super(s);
+    }
 
     @Override
     public void translateBy(Vec3 v) {

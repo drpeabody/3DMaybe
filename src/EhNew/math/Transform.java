@@ -4,23 +4,18 @@ package EhNew.math;
  * @since 22 Jan, 2016
  * @author Abhishek
  */
-public class Transformer {
-    public float aspectRatio;
-    public float width;
-    public float fieldOfView;
-    public float zNear;
-    public float zFar;
-    
+public class Transform {
     private Vec3 translation, rotation, scale;
     
-    public Transformer(){
-        aspectRatio = 1.0f;
-        fieldOfView = 5*(float)(Math.PI/2);
-        zNear = 1.0f;
-        zFar = -1.0f;
+    public Transform(){
         translation = new Vec3();
         rotation = new Vec3();
         scale = new Vec3(1.0f, 1.0f, 1.0f);
+    }
+    public Transform(Vec3 pos, Vec3 rot, Vec3 scal){
+        translation = pos;
+        rotation = rot;
+        scale = scal;
     }
     
     public void scale(Vec3 s){
@@ -33,9 +28,6 @@ public class Transformer {
         translation = s;
     }
     
-    public float getHeight(){
-        return width/aspectRatio;
-    }
     public float[] calculateTransformation(){
         float cRx = (float)Math.cos(rotation.x);
         float cRy = (float)Math.cos(rotation.y);
@@ -55,12 +47,5 @@ public class Transformer {
         };
         
         return f;
-    }
-    public float[] calculateProjection() {
-        return (new float[] {
-            (1.0f/(float)(Math.tan(fieldOfView/2)))/aspectRatio,0.0f,0.0f,0.0f,
-            0.0f, 1.0f/(float)(Math.tan(fieldOfView/2)), 0.0f, 0.0f,
-            0.0f, 0.0f, (-zNear -zFar)/(zNear - zFar), (2*zNear*zFar)/(zNear - zFar),
-            0.0f, 0.0f, 1.0f, 0.0f});
     }
 }

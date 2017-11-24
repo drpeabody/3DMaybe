@@ -1,6 +1,7 @@
 package EhNew.geom;
 
 import EhNew.DrawableEntity;
+import EhNew.shaders.Shader;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -8,8 +9,8 @@ import org.lwjgl.opengl.GL11;
  */
 public class Sphere extends DrawableEntity {
     
-    public Sphere(){
-        super();
+    public Sphere(Shader s){
+        super(s);
     }
 
     @Override

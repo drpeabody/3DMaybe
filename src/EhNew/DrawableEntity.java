@@ -1,6 +1,7 @@
 package EhNew;
 
 import EhNew.geom.Vertex;
+import EhNew.shaders.Shader;
 import EhNew.util.OBJLoader;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
@@ -19,7 +20,7 @@ public abstract class DrawableEntity extends Entity{
     protected int vertID, idxID;
     protected int indexCount, indexOffset;
     
-    public DrawableEntity(){
+    public DrawableEntity(Shader s){
         super();
         vertID = idxID = indexCount = indexOffset = -1;
     }

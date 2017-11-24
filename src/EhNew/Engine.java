@@ -1,20 +1,26 @@
 package EhNew;
 
+import EhNew.math.Matrix4f;
+import EhNew.math.ProjectionTransform;
 import EhNew.util.TickManager;
 import EhNew.util.Camera;
-import EhNew.math.Transformer;
 import EhNew.math.Vec2;
 import EhNew.shaders.FactoryShader;
 import EhNew.shaders.Shader;
 import EhNew.util.TextFactory;
+import java.nio.ByteBuffer;
 import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.opengl.GL11.*;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 
 /**
  * @since 20 Jan, 2016
@@ -24,11 +30,12 @@ public class Engine {
     private int fps;
     private long window;
     protected Camera c;
-    protected Transformer t;
+    protected ProjectionTransform t;
     private Level current;
     private TickManager updater, renderer;
     protected TextFactory text;
     protected Shader currshader;
+    protected int defIdentityInstTranformTextureID;
     
     
     /**
@@ -37,7 +44,7 @@ public class Engine {
      */
     public Engine(){
         c = new Camera();
-        t = new Transformer();
+        t = new ProjectionTransform();
         window = -1;
         current = null;
         updater = null;
@@ -87,7 +94,31 @@ public class Engine {
                 glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
                 glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
                 currshader.init();
-                currshader.loadShader();                
+                currshader.loadShader();
+                
+                defIdentityInstTranformTextureID = glGenTextures();
+                glEnable(GL_TEXTURE_1D);
+                GL13.glActiveTexture(currshader.getInstanceTransformMapTextureUnit());
+                glBindTexture(GL_TEXTURE_1D, defIdentityInstTranformTextureID);
+                GL20.glUniform1i(currshader.getUniformLocation(((FactoryShader)currshader).UNIFORM_INSTANCE_TRANSFORM_MAP_SIZE), 4);
+                FloatBuffer g = BufferUtils.createFloatBuffer(16);
+                g.put(new float[]{
+//                    (byte)0xff, (byte)0x00, (byte)0x00, (byte)0x00,   // 0  1  2  3
+//                    (byte)0x00, (byte)0xff, (byte)0x00, (byte)0x00,   // 4  5  6  7
+//                    (byte)0x00, (byte)0x00, (byte)0xff, (byte)0x00,   // 8  9 10 11
+//                    (byte)0x00, (byte)0x00, (byte)0x00, (byte)0xff,});//12 13 14 15
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1});
+                g.flip();
+                glTexImage1D(GL_TEXTURE_1D, 0, GL30.GL_RGBA32F, 4, 0, GL_RGBA, GL_FLOAT, g);
+                glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+                glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+                glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
+                glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
+                
+                glDisable(GL_TEXTURE_1D);
             }, "Renderer");
             renderer.setTickDelay(1000/fps);
             renderer.runOnce();
@@ -295,7 +326,7 @@ public class Engine {
     public long getWindow(){
         return window;
     }
-    public Transformer getTransformer(){
+    public ProjectionTransform getProjeTransform(){
         return t;
     }
     public Vec2 transformGLFWCoodsToOpenGLCoods(float x, float y){
@@ -311,6 +342,12 @@ public class Engine {
         return new Vec2(
             ((float)mouseX.get(0) - t.width/2)*2/t.width,
             (height/2 - (float)mouseY.get(0))*2/height);
+    }
+    
+    //TODO
+    public int getDefaultIdentityInstanceTransformTexture(){
+        System.out.println("TODO: getDefaultIdentityInstanceTransformTexture()");
+        return 0;
     }
     
     /**
