@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL13;
  * @author Abhishek
  */
 public class PictureBox extends HUDElement{
-    boolean isTextureDirty, isBufferDirty;
+    boolean isTextureDirty;
     Texture t;
     
     public PictureBox(Vec2 pos, Vec2 size, BufferedImage text, Vec4 color){
@@ -53,6 +53,7 @@ public class PictureBox extends HUDElement{
         if(b == null){
             b = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
             b.setRGB(0, 0, 0);
+            changeTextureDominance(0f);
         }
         t.changeImageTo(b);
         t.loadFromImage();
@@ -65,17 +66,13 @@ public class PictureBox extends HUDElement{
             isTextureDirty = false;
             t.bufferData();
         }
-        if(isBufferDirty){
-            isBufferDirty = false;
-            updateBuffer();
-        }
         t.bind();
         super.draw();
         t.unBind();
     }
     
-    public void destroyTexture() {
-        if(t == null) return;
-        t.destroy();
+    @Override
+    public void destroy() {
+        if(t != null) t.destroy();
     }
 }

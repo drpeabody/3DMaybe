@@ -26,26 +26,4 @@ public class HUDButton extends PictureBox{
         r.run();
     }
     
-    public boolean contains(Vec2 v){
-        if(v.x >= BL.pos.x && v.y >= BL.pos.y){
-            if(v.x <= TR.pos.x && v.y <= TR.pos.y){
-                return true;
-            }
-        }
-        return false;
-    }
-    public boolean contains(float x, float y){
-        if(x >= BL.pos.x && y >= BL.pos.x){
-            if(x <= TR.pos.x && y <= BR.pos.y){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public void changeColor(Vec4 color){
-        TL.color = TR.color = BR.color = BL.color = color;
-//        updateBuffer();
-        isBufferDirty = true;
-    }
 }

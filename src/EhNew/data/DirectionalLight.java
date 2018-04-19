@@ -15,7 +15,7 @@ public class DirectionalLight{
         color = new Vec3(1.0f,1.0f,1.0f);
         dir = new Vec3(-1.0f, -0.5f, 0.0f);
         ambInten = 0.1f;
-        diffInten = 1f;
+        diffInten = 0.5f;
         specInten = 2f;
         specPower = 8f;
     }

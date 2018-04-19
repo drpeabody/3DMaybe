@@ -31,7 +31,7 @@ public class HUDShader extends Shader{
 
     
     @Override
-    public void updateTransformation(float[] mat) {
+    public void updateTransformationVectors(float[] mat) {
     }
     @Override
     public void finalizeShader() {
@@ -57,6 +57,16 @@ public class HUDShader extends Shader{
     @Override
     public int getInstanceTransformMapTextureUnit() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getUniformOfLocationInstanceTransformMapSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getEmmisiveMapTextureUnit() {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
     

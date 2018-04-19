@@ -13,7 +13,6 @@ import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
 import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import org.lwjgl.opengl.GL13;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
@@ -28,18 +27,27 @@ import static org.lwjgl.opengl.GL15.glGenBuffers;
 public class Terrain extends DrawableEntity{
     //Uses 16 bit Monochrome HeightMaps.
     protected BufferedImage heightMap;
-    protected Texture tex, texNormal;
-    protected Vec3 startPos, cellSize;
+    protected Texture tex, texNormal, emm;
+    protected Vec3 startPos, cellSize, endPos;
     protected Vec2 TextureScale;
+    private final float del;
 
     public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, Vec2 TexScale, Shader s) {
         super(s);
         this.heightMap = highetmap;
+        if(heightMap == null){
+            try {
+                heightMap = ImageIO.read(Engine.class.getResourceAsStream("TestHeightMap.png"));
+            } catch (IOException ex) {}
+        }
         this.cellSize = cellSize;
         this.startPos = startPos;
         tex = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), "null.png");
         texNormal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(),"nullN.png");
+        emm = new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(),"nullE.png");
         TextureScale = TexScale;
+        endPos = null;
+        del = heightMap.getRGB(0,0);
     }
     public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, BufferedImage texture, BufferedImage normal, Vec2 texScale, Shader s) {
         super(s);
@@ -49,42 +57,80 @@ public class Terrain extends DrawableEntity{
         this.startPos = startPos;
         tex = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), texture);
         texNormal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), normal);
+        emm = new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), "nullE.png");
+        endPos = null;
+        del = heightMap.getRGB(0,0);
+    }
+    public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, BufferedImage texture, BufferedImage normal, BufferedImage emmisive, Vec2 texScale, Shader s) {
+        super(s);
+        this.heightMap = highetmap;
+        this.cellSize = cellSize;
+        TextureScale = texScale;
+        this.startPos = startPos;
+        tex = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), texture);
+        texNormal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), normal);
+        emm = new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), emmisive);
+        endPos = null;
+        del = heightMap.getRGB(0,0);
     }
 
+    public Vec3 getStartPos() {
+        return startPos;
+    }
+
+    public Vec3 getCellSize() {
+        return cellSize;
+    }
+
+    public Vec3 getEndPos() {
+        return endPos;
+    }
+
+    public Vec2 getTextureScale() {
+        return TextureScale;
+    }
+    
+    public Vec3 getCenter(){
+        return startPos.sum(endPos).product(0.5f);
+    }
+    
+    public float getHeightAt(float x, float y){
+        final int idx = (int)Math.floor(x), idy = (int)Math.floor(y);
+        final float ref = heightMap.getRGB(idx, idy);
+        final float dzx = ((float)heightMap.getRGB(idx + 1, idy) - ref) * (x - idx),
+            dzy = ((float)heightMap.getRGB(idx, idy + 1) - ref) * (y - idy);
+        return ref + dzx + dzy - del;
+    }
+    
     @Override
     public void load() {
-        if(heightMap == null){
-            try {
-                heightMap = ImageIO.read(Engine.class.getResourceAsStream("TestHeightMap.png"));
-            } catch (IOException ex) {}
-        }
         tex.loadFromImage();
         tex.bufferData();
         texNormal.loadFromImage();
         texNormal.bufferData();
+        emm.loadFromImage();
+        emm.bufferData();
         
-        int width = heightMap.getWidth();
-        int height = heightMap.getHeight();
-        int[] arr = new int[(width - 1) * (height - 1) * 4];
+        final int width = heightMap.getWidth();
+        final int height = heightMap.getHeight();
+        final int[] arr = new int[(width - 1) * (height - 1) * 4];
         
         Vertex v[] = new Vertex[height*width];
         
-        float a;
-        float del = heightMap.getRGB(0, 0) & 0x0000ffff;
-        
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                a = ((heightMap.getRGB(i, j)) & 0x0000ffff) - del;
                 Vertex t = v[i*width + j] = new Vertex();
-                t.pos = new Vec3(startPos.x + cellSize.x * i, startPos.y + cellSize.y * a, startPos.z + cellSize.z * j);
+                t.pos = new Vec3(startPos.x + cellSize.x * i, startPos.y + cellSize.y * (heightMap.getRGB(i, j) - del), startPos.z + cellSize.z * j);
                 t.TextCoods.x = TextureScale.x * i;
                 t.TextCoods.y = TextureScale.y * j;
             }
         }
-        int udx;
+        
+        endPos = v[(width - 1) * width + height - 1].pos.product(1f);
+        
+        int udx = 0;
         for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                udx = i * width + j;
+            for (int j = 0; j < height; j++, udx++) {
                 if(i == 0){
                     v[udx].tangent = v[(udx + width)].pos.difference(v[udx].pos);
                     v[udx].normal = v[udx + width].pos.difference(v[udx].pos).cross(v[udx + 1].pos.difference(v[udx].pos));
@@ -101,6 +147,7 @@ public class Terrain extends DrawableEntity{
             }
         }
         
+        udx = 0;
         int b = 0;
         
         for (int i = 0; i < width-1; i++) {
@@ -130,11 +177,13 @@ public class Terrain extends DrawableEntity{
     }
 
     @Override
-    public void draw() {
+    public void draw(int drawMode) {
         texNormal.bind();
         tex.bind();
+        emm.bind();
         super.draw(GL11.GL_QUADS);
         tex.unBind();
+        emm.unBind();
         texNormal.unBind();
     }
     
@@ -143,5 +192,6 @@ public class Terrain extends DrawableEntity{
         super.destroy();
         tex.destroy();
         texNormal.destroy();
+        emm.destroy();
     }
 }

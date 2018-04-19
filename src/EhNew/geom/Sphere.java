@@ -2,7 +2,6 @@ package EhNew.geom;
 
 import EhNew.DrawableEntity;
 import EhNew.shaders.Shader;
-import org.lwjgl.opengl.GL11;
 
 /**
  * @author Abhishek
@@ -19,8 +18,8 @@ public class Sphere extends DrawableEntity {
     }
 
     @Override
-    public void draw() {
-        super.draw(GL11.GL_TRIANGLES);
+    public void draw(int drawMode) {
+        super.draw(drawMode);
     }
     
     

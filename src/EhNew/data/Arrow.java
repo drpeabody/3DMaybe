@@ -2,7 +2,6 @@ package EhNew.data;
 
 import EhNew.DrawableEntity;
 import EhNew.shaders.Shader;
-import org.lwjgl.opengl.GL11;
 
 /**
  * @author Abhishek
@@ -20,7 +19,7 @@ public class Arrow extends DrawableEntity{
     
     
     @Override
-    public void draw() {
-        super.draw(GL11.GL_TRIANGLES);
+    public void draw(int drawMode) {
+        super.draw(drawMode);
     }
 }

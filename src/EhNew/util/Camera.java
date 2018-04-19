@@ -2,7 +2,7 @@ package EhNew.util;
 
 import EhNew.math.Vec2;
 import EhNew.math.Vec3;
-import EhNew.shaders.FactoryShader;
+import EhNew.shaders.CamShader;
 import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -93,8 +93,16 @@ public class Camera {
         left = head.cross(target).unitVector();
     }
     
+    public void setCamRotated(boolean b){
+        camRotated = b;
+    }
+    public void setCamMoved(boolean b){
+        camMoved = b;
+    }
+    
     public void moveCameraBy(Vec3 displacement) {
         loc.add(displacement);
+        camMoved = true;
     }
     public void rotateCameraBy(Vec2 mouseDisp) {
         float Hangle = -mouseDisp.x*mouseSpeed;
@@ -112,6 +120,7 @@ public class Camera {
         left = Vaxis.cross(target).unitVector();
         target = target.rotateAbout(left, Vangle).unitVector();
         head = target.cross(left);
+        camRotated = true;
     }
     
     public float[] calculatecameraMatrix(){
@@ -122,6 +131,12 @@ public class Camera {
             0.0f, 0.0f, 0.0f, 1.0f});
     }
     
+    public void update() {
+        if (KeyBackwardPressed | KeyForwardPressed | KeyLeftPressed | KeyRightPressed | KeyUpPressed | KeyDownPressed) {
+            moveCameraBy(dirMove.unitVector().product(flySpeed));
+        }
+    }
+
     public GLFWKeyCallback getKeyCallBack(){
         return new GLFWKeyCallback() {
             @Override
@@ -148,8 +163,7 @@ public class Camera {
                 if(KeyLeftPressed) dirMove.subtract(left.unitVector());
                 else if(KeyRightPressed) dirMove.add(left.unitVector());
                 if(KeyUpPressed) dirMove.add(new Vec3(0f,1f,0f));
-                else if(KeyDownPressed) dirMove.subtract(new Vec3(0f,1f,0f));
-                
+                else if(KeyDownPressed) dirMove.subtract(new Vec3(0f, 1f, 0f));
             }
         };
     }
@@ -166,15 +180,15 @@ public class Camera {
             };
     }
     
-    public void updateCameraMatrices(FactoryShader f) {
-        if(KeyBackwardPressed | KeyForwardPressed | KeyLeftPressed | KeyRightPressed | KeyUpPressed | KeyDownPressed){
-            moveCameraBy(dirMove.unitVector().product(flySpeed));
-        }
-        if (camRotated || camMoved) {
+    public void updateCameraMatrices(CamShader f) {
+        if (camMoved) {
             f.updateCameraLocation(getPos().getArray());
             f.updateCameraMatrix(calculatecameraMatrix());
-            camMoved = false;
-            camMoved = false;
         }
+        else if (camRotated) {
+            f.updateCameraMatrix(calculatecameraMatrix());
+        }
+        camMoved = false;
+        camRotated = false;
     }
 }

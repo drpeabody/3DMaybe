@@ -11,7 +11,6 @@ public abstract class Entity {
     
     public abstract void load();
     public abstract void draw(int drawMode);
-    public abstract void draw();
     public abstract void destroy();
     
     protected Entity(){

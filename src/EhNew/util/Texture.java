@@ -7,7 +7,6 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.*;
-import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL13;
 
 /**
@@ -67,20 +66,11 @@ public class Texture {
     //This function needs to be optimised for multiple runs
     public void bufferData(){
         GL13.glActiveTexture(unit);
-        if(id == -1){
-            id = glGenTextures();
-            glBindTexture(target, id);
-            glTexImage2D(target, 0, (numComp == 3) ? GL_RGB : GL_RGBA, width, height, 0, (numComp == 3) ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, data);
-            glTexParameterf(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            glTexParameterf(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        }
-        else{
-            glBindTexture(target, id);
-            glTexSubImage2D(target, 0, 0, 0, width, height, (numComp == 3)?GL_RGB:GL_RGBA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, data);
-            if(glGetError() == 1281){
-                glTexImage2D(target, 0,  (numComp == 3)?GL_RGB:GL_RGBA, width, height, 0, (numComp == 3)?GL_RGB:GL_RGBA, GL_UNSIGNED_BYTE, data);
-            }
-        }
+        id = glGenTextures();
+        glBindTexture(target, id);
+        glTexImage2D(target, 0, (numComp == 3) ? GL_RGB : GL_RGBA, width, height, 0, (numComp == 3) ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glTexParameterf(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameterf(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     }
     public void changeImageTo(BufferedImage b){
         image = b;

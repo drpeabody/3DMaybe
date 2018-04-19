@@ -16,12 +16,19 @@ import static org.lwjgl.opengl.GL20.*;
  * @author Abhishek
  */
 public abstract class DrawableEntity extends Entity{
-    
+    /* Shader information is required in the Drawable Entity as a measure for forward compatibilty.
+     Future implementations of the DrawableEntity might want to bind specific textures to specific 
+     Texture units, all of which information is contained in the Shader. DrawableEntity only knows what a particular 
+     Texture will be used for, differently written shaders might have similar Texture Maps on different
+     TExture Units.
+    */
+    protected Shader s;
     protected int vertID, idxID;
     protected int indexCount, indexOffset;
     
     public DrawableEntity(Shader s){
         super();
+        this.s  = s;
         vertID = idxID = indexCount = indexOffset = -1;
     }
     
@@ -54,6 +61,38 @@ public abstract class DrawableEntity extends Entity{
         glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);
         glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_TANGENT);
     }
+
+    /*
+    @Override
+    public void drawInstanced(int drawMode, int countInstance) {
+        if((vertID + idxID) < 0){
+            throw new IllegalStateException("Attempting to draw Entity without creation");
+        }
+        if((indexCount + indexOffset) < 1){
+            throw new IllegalStateException("Attempting to draw unindexed Entity");
+        }
+        
+        glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_POSITION);
+        glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_TEXTURE_COOD);
+        glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);
+        glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_TANGENT);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, vertID);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxID);
+        
+        glVertexAttribPointer(Vertex.POINTER_ATTRIB_POSITION, 3, GL_FLOAT, false, Vertex.SIZE, Vertex.OFFSET_POSITION);
+        glVertexAttribPointer(Vertex.POINTER_ATTRIB_TEXTURE_COOD, 2, GL_FLOAT, false, Vertex.SIZE, Vertex.OFFSET_TEXTURE_COORD);
+        glVertexAttribPointer(Vertex.POINTER_ATTRIB_NORMAL, 3, GL_FLOAT, false, Vertex.SIZE, Vertex.OFFSET_NORMAL);
+        glVertexAttribPointer(Vertex.POINTER_ATTRIB_TANGENT, 3, GL_FLOAT, false, Vertex.SIZE, Vertex.OFFSET_TANGENT);
+        
+        GL31.glDrawElementsInstanced(drawMode, indexCount, GL_UNSIGNED_INT, indexOffset, countInstance);
+        
+        glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_POSITION);
+        glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_TEXTURE_COOD);
+        glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);
+        glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_TANGENT);
+        
+    }*/
     
     public void load(InputStream s) {
         if (idxID != -1 || vertID != -1) {

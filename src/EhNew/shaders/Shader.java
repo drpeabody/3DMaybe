@@ -67,6 +67,7 @@ public abstract class Shader {
             s = glGetShaderInfoLog(sh);
             if (!s.isEmpty()) {
                 System.out.println(s);
+                System.exit(1);
             }
             return sh;
         } catch (Exception e) {}
@@ -74,12 +75,14 @@ public abstract class Shader {
     }
     
     public abstract void loadShader();
-    public abstract void updateTransformation(float[] mat);
+    public abstract void updateTransformationVectors(float[] mat);
     public abstract void updateProjection(float[] mat);
     //Since shader is handled by Engine, it assumes some defualt functionality.
     //If your shader doesn't use this functionality, leave the function empty.
     
     public abstract int getDiffuseMapTextureUnit();
     public abstract int getNormalMapTextureUnit();
+    public abstract int getEmmisiveMapTextureUnit();
     public abstract int getInstanceTransformMapTextureUnit();
+    public abstract int getUniformOfLocationInstanceTransformMapSize();
 }

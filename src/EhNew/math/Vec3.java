@@ -56,7 +56,7 @@ public class Vec3 {
         z *= f;
     }
     public void normalize(){
-        float f = modulus();
+        float f = (float)(Math.sqrt(x*x + y*y + z*z));
         x = x/f;
         y = y/f;
         z = z/f;

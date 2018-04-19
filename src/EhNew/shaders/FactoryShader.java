@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL20.*;
  * @since 29 Jan, 2016
  * @author Abhishek
  */
-public class FactoryShader extends Shader{
+public class FactoryShader extends Shader implements CamShader{
     public final String UNIFORM_TRANSLATE_MATRIX = "trans";
     public final String UNIFORM_POJECTION_MATRIX = "proj";
     public final String UNIFORM_CAM_MATRIX = "cam";
@@ -30,12 +30,13 @@ public class FactoryShader extends Shader{
     public final String UNIFORM_POINTLIGHT_ARRAY = "lights";
     public final String UNIFORM_TEXTURE_DIFFUSEMAP = "diffuseMap";
     public final String UNIFORM_TEXTURE_NORMALMAP = "normalMap";
+    public final String UNIFORM_TEXTURE_EMMISIVEMAP = "emmisiveMap";
     public final String UNIFORM_TEXTURE_INSTANCE_TRANSFORM_MAP = "instTransMatrices";
     public final String UNIFORM_INSTANCE_TRANSFORM_MAP_SIZE = "instTransMapSize";
     
     public final int TEXTURE_UNIT_DIFFURE_MAP = 0;
     public final int TEXTURE_UNIT_NORMAL_MAP = 1;
-    public final int TEXTURE_UNIT_INSTANCE_TRANSFORM_MAP = 2;
+    public final int TEXTURE_UNIT_EMMISIVE_MAP = 2;
     
     int numPointLights;
     
@@ -65,7 +66,7 @@ public class FactoryShader extends Shader{
         camLocLoc = glGetUniformLocation(programID, UNIFORM_CAM_LOCATION);
         glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_DIFFUSEMAP), TEXTURE_UNIT_DIFFURE_MAP);
         glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_NORMALMAP), TEXTURE_UNIT_NORMAL_MAP);
-        glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_INSTANCE_TRANSFORM_MAP), TEXTURE_UNIT_INSTANCE_TRANSFORM_MAP);
+        glUniform1i(glGetUniformLocation(programID, UNIFORM_TEXTURE_EMMISIVEMAP), TEXTURE_UNIT_EMMISIVE_MAP);
     }
     
     public void updatePointLightProperty(PointLight l, String property){
@@ -148,13 +149,15 @@ public class FactoryShader extends Shader{
                 true, projMat);
     }
     @Override
-    public void updateTransformation(float[] mat){
+    public void updateTransformationVectors(float[] mat){
         glUniformMatrix4fv(getUniformLocation(UNIFORM_TRANSLATE_MATRIX), 
                 true, mat);
     }
+    @Override
     public void updateCameraMatrix(float[] camMat){
         glUniformMatrix4fv(camMatLoc, true, camMat);
     }
+    @Override
     public void updateCameraLocation(float[] camLoc){
         glUniform3fv(camLocLoc, camLoc);
     }
@@ -169,7 +172,16 @@ public class FactoryShader extends Shader{
         return GL13.GL_TEXTURE1;
     }
     @Override
+    public int getEmmisiveMapTextureUnit(){
+        return GL13.GL_TEXTURE2;
+    }
+    @Override
     public int getInstanceTransformMapTextureUnit(){
         return GL13.GL_TEXTURE2;
+    }
+
+    @Override
+    public int getUniformOfLocationInstanceTransformMapSize() {
+        return getUniformLocation(UNIFORM_INSTANCE_TRANSFORM_MAP_SIZE);
     }
 }

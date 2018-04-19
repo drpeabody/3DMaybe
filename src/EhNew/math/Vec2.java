@@ -32,4 +32,11 @@ public class Vec2 {
         Vec2 o = (Vec2)v;
         return o.x == x && o.y == y;
     }
+    
+    public Vec2 sum(Vec2 v){
+        return new Vec2(x + v.x, y + v.y);
+    }
+    public Vec2 difference(Vec2 v){
+        return new Vec2(x - v.x, y - v.y);
+    }
 }

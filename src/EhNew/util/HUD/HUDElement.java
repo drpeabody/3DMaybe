@@ -1,6 +1,7 @@
 package EhNew.util.HUD;
 
 import EhNew.math.Vec2;
+import EhNew.math.Vec4;
 import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
@@ -17,6 +18,7 @@ public abstract class HUDElement {
     protected HUDVertex BL, BR, TL, TR;
     protected int bufferOffset;//Follows bytes
     protected HUDBuffer buffer;
+    protected boolean isBufferDirty, toBeDestroyed;
     
     public HUDElement(){
         BL = new HUDVertex();
@@ -28,6 +30,7 @@ public abstract class HUDElement {
         TL.textCood = new Vec2(0, 0);
         TR.textCood = new Vec2(1, 0);
         bufferOffset = 0;
+        isBufferDirty = toBeDestroyed = false;
     }
     
     public void load(HUDBuffer b){
@@ -41,6 +44,14 @@ public abstract class HUDElement {
     }
     
     public void draw() {
+        if(toBeDestroyed){
+            destroy();
+            return;
+        }
+        if(isBufferDirty){
+            isBufferDirty = false;
+            updateBuffer();
+        }
         buffer.draw(bufferOffset);
     }
     
@@ -53,5 +64,79 @@ public abstract class HUDElement {
                 .put(TL.getArray());
         f.flip();
         GL15.glBufferSubData(GL_ARRAY_BUFFER, bufferOffset, f);
+    }
+    
+    public Vec2 getSize(){
+        return TR.pos.difference(BL.pos);
+    }
+    
+    public void changeTextureDominance(float f) {
+        TL.texDom = TR.texDom = BR.texDom = BL.texDom = f;
+        isBufferDirty = true;
+    }
+    
+    public Vec2 getPosition(){
+        return BL.pos;
+    }
+    public void movePositionBy(Vec2 dist){
+        TL.pos = TL.pos.sum(dist);
+        BL.pos = BL.pos.sum(dist);
+        TR.pos = TR.pos.sum(dist);
+        BR.pos = BR.pos.sum(dist);
+        isBufferDirty = true;
+    }
+    public void movePositionTo(Vec2 newPos){
+        Vec2 size = TR.pos.difference(BL.pos);
+        BL.pos = new Vec2(newPos.x, newPos.y);
+        TL.pos = new Vec2(newPos.x, newPos.y + size.y);
+        TR.pos = new Vec2(newPos.x + size.x, newPos.y + size.y);
+        BR.pos = new Vec2(newPos.x + size.x, newPos.y);
+        isBufferDirty = true;
+    }
+    
+    public void resizeTo(Vec2 newSize){
+        Vec2 centre = new Vec2((TR.pos.x + BL.pos.x)/2, (TR.pos.y + BL.pos.y)/2);
+        BL.pos = new Vec2(centre.x - newSize.x/2, centre.y - newSize.y/2);
+        TL.pos = new Vec2(centre.x - newSize.x/2, centre.y + newSize.y/2);
+        TR.pos = new Vec2(centre.x + newSize.x/2, centre.y + newSize.y/2);
+        BR.pos = new Vec2(centre.x + newSize.x/2, centre.y - newSize.y/2);
+        isBufferDirty = true;
+    }
+    public void resizeBy(Vec2 delta){
+        Vec2 hs = TR.pos.difference(BL.pos).sum(delta);
+        Vec2 centre = new Vec2((TR.pos.x + BL.pos.x)/2, (TR.pos.y + BL.pos.y)/2);
+        BL.pos = new Vec2(centre.x - hs.x/2, centre.y - hs.y/2);
+        TL.pos = new Vec2(centre.x - hs.x/2, centre.y + hs.y/2);
+        TR.pos = new Vec2(centre.x + hs.x/2, centre.y + hs.y/2);
+        BR.pos = new Vec2(centre.x + hs.x/2, centre.y - hs.y/2);
+        isBufferDirty = true;
+    }
+    
+    public void changeColor(Vec4 color){
+        TL.color = TR.color = BR.color = BL.color = color;
+        isBufferDirty = true;
+    }
+    
+    public void prepareForDestruction(){
+        toBeDestroyed = true;
+    }
+    
+    public abstract void destroy();
+    
+    public boolean contains(Vec2 v){
+        if(v.x >= BL.pos.x && v.y >= BL.pos.y){
+            if(v.x <= TR.pos.x && v.y <= TR.pos.y){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean contains(float x, float y){
+        if(x >= BL.pos.x && y >= BL.pos.x){
+            if(x <= TR.pos.x && y <= BR.pos.y){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -47,6 +47,7 @@ public class TextFactory{
         color = c;
         font = f;
     }
+    
     public BufferedImage createText(String c){
         TextLayout t = new TextLayout(c, font, context);
         Rectangle2D r = t.getBounds();

@@ -30,27 +30,44 @@ public class Main {
         Engine e = new Engine();
         e.init("Window Title", 1280, 720, 60);
         LevelSample l = new LevelSample(e);
+//        ShaderTest l = new ShaderTest(e);
         e.loadLevel(l);
         e.start(l);
-//        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("D:/as.txt")));
-//        
-//        int i = 1, x = 0;
-//        while(i < 255*255){
-//            String s = i + ": " + (char)(i) + " \n";
-//            bw.write(s);
-//            x += s.length();
-//            i++;
-//        }
-//        bw.close();
+    }
+    
+    static class ShaderTest extends Level{
+        FactoryShader fs;
+
+        public ShaderTest(Engine main) {
+            super(main);
+            fs = new FactoryShader();
+        }
+
+        @Override
+        public void load() {
+            super.load(); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void draw() {
+            glBegin(GL_QUADS);
+            glVertex2f(-1f, -1f);
+            glVertex2f(-1f, 1f);
+            glVertex2f(1f, 1f);
+            glVertex2f(1f, -1f);
+            glEnd();
+        }
+
+        @Override
+        public void update() {
+            
+        }
+
+        @Override
+        public void destroy() {
+            
+        }
         
-//        try{
-//            Thread.sleep(4000);
-//        } catch(Exception ex){}
-//        e.pauseRenderer();
-//        e.unLoadLevel();
-//        e.loadLevel(l);
-//        e.registerLevel(l);
-//        e.resumeRenderer();
     }
     
     static class LevelSample extends Level{
@@ -78,7 +95,7 @@ public class Main {
             hs = new HUDShader();
             hud = new HUDBuffer(2, GL15.GL_DYNAMIC_DRAW);
             pb = new ProgressBar(new Vec2(-0.9f, -0.9f), new Vec2(0, -0.8f), new Vec4(0f, 0f, 0.5f, 0.5f), 0f, 1f, null);
-            ter = new Terrain(null, new Vec3(3f, 0.005f, 3f), new Vec3(-6f, -4f, -1f), new Vec2(0.05f, 0.05f), f);
+            ter = new Terrain(null, new Vec3(3f, 0.00001f, 3f), new Vec3(-60f, -2f, -60f), new Vec2(0.05f, 0.05f), f);
             s1 = new Sphere(f);
             s2 = new Sphere(f);
             a = new Arrow(f);
@@ -95,7 +112,7 @@ public class Main {
             hs.loadShader();
             engine.switchToShader(hs);
             
-            pb.animateDrawTillProgress(0.2f, 1f, 60, engine, 2000);
+            //pb.animateDrawTillProgress(0.2f, 1f, 60, engine, 2000);
             
             glfwSetInputMode(engine.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
             engine.getCamera().setPos(new Vec3(0f, 0f, -7f));
@@ -108,7 +125,7 @@ public class Main {
                 }
             });
             
-            pb.animateDrawTillProgress(0.6f, 1f, 60, engine, 1000);
+            //pb.animateDrawTillProgress(0.6f, 1f, 60, engine, 1000);
             
             h.load(hud);
             s1.load();
@@ -123,7 +140,7 @@ public class Main {
             ter.load();
             
             sc2.setTranslation(new Vec3(4f, 0, 1.5f));
-            sc2.setScale(new Vec3(1.4f, 1.2f, 1f));
+            sc2.setScale(new Vec3(2f, 2f, 2f));
             sc2.rotateBy(new Vec3(0.5f, 0.0f, 0f));
             
             l.diffInten = 1f;
@@ -140,8 +157,8 @@ public class Main {
             m.pos.z = -10.0f;
             m.pos.y = -4f;
             
-            
-            pb.animateDrawTillProgress(0.9f, 1f, 60, engine, 500);
+            pb.animateDrawTillProgress(0.6f, 1f, 60, engine, 500);
+                        
             pb.animateDrawTillProgress(1f, 1f, 60, engine, 300);
             
             engine.switchToShader(f);
@@ -164,11 +181,13 @@ public class Main {
             //engine must be called upon to draw objects and it handles shaders
             //to correctly implement transformation for each entity without the user having to worry about it
             //Passing an array of a set of large objects will speed up this thing
+            
             engine.draw(sc2);
             engine.draw(s1);
             engine.draw(s2);
             engine.draw(a);
             engine.draw(ter);
+            
             
             f.updatePointLightProperty(l, f.UNIFORM_LIGHT_POSITION);
             f.updatePointLightProperty(m, f.UNIFORM_LIGHT_POSITION);
@@ -183,6 +202,7 @@ public class Main {
         public void update() {
             l.pos.z -= 0.01f;
             m.pos.z += 0.01f;
+            engine.getCamera().update();
         }
 
         @Override
@@ -197,7 +217,7 @@ public class Main {
             f.destroyShaders();
             hs.destroyShaders();
             hud.release();
-            h.destroyTexture();
+            h.destroy();
         }
     }
 }

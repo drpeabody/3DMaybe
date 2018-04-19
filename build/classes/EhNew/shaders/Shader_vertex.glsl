@@ -8,8 +8,6 @@ layout (location = 3) in vec3 tangent;
 uniform mat4 trans = mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 uniform mat4 proj = mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 uniform mat4 cam = mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-uniform sampler1D instTransMatrices;
-uniform int instTransMapSize;
 
 out vec2 TextureCood0;
 out vec3 Normal0;
@@ -17,14 +15,10 @@ out vec3 WorldFragPos0;
 out vec3 Tangent0;
 
 void main(){
-    float v = gl_InstanceID * 4;
-    mat4 instMat = mat4(texture(instTransMatrices, (v)/instTransMapSize),
-                        texture(instTransMatrices, (v+1)/instTransMapSize),
-                        texture(instTransMatrices, (v+2)/instTransMapSize),
-                        texture(instTransMatrices, (v+3)/instTransMapSize));
-    gl_Position = (proj * cam * instMat * trans * Position);
+    //gl_Position = proj * cam * trans * Position + gl_Position;
+    gl_Position = proj * cam * trans * Position;
     TextureCood0 = textCood;
-    Normal0 = (trans*vec4(Normal,0.0)).xyz;
-    Tangent0 = normalize(trans*vec4(tangent,0.0)).xyz; 
-    WorldFragPos0 = (trans*Position).xyz;
+    Normal0 = (trans * vec4(Normal, 0.0)).xyz;
+    Tangent0 = normalize(trans * vec4(tangent, 0.0)).xyz;
+    WorldFragPos0 = (trans * Position).xyz;
 }

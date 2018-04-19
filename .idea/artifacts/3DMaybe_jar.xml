@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="3DMaybe:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/3DMaybe_jar</output-path>
+    <root id="archive" name="3DMaybe.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-glfw.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-opengl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-natives-linux.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-natives-macos.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-natives-windows.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-glfw-natives-linux.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-glfw-natives-macos.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-glfw-natives-windows.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-opengl-natives-linux.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-opengl-natives-macos.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../JOGL/LWJGL 3/lwjgl-stable-2017-10-25-custom/lwjgl-opengl-natives-windows.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
