@@ -1,15 +1,13 @@
 package EhNew;
 
-import EhNew.math.ProjectionTransform;
+import EhNew.math.PerspectiveProjection;
+import EhNew.math.Projection;
 import EhNew.util.TickManager;
 import EhNew.util.Camera;
 import EhNew.math.Vec2;
 import EhNew.shaders.FactoryShader;
 import EhNew.shaders.Shader;
 import EhNew.util.TextFactory;
-import java.nio.DoubleBuffer;
-import java.nio.IntBuffer;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.opengl.GL;
@@ -24,7 +22,6 @@ public class Engine {
     private int fps;
     private long window;
     protected Camera c;
-    protected ProjectionTransform t;
     private Level current;
     private TickManager updater, renderer;
     protected TextFactory text;
@@ -36,8 +33,6 @@ public class Engine {
      * accelerated context.
      */
     public Engine(){
-        c = new Camera();
-        t = new ProjectionTransform();
         window = -1;
         drawMode = GL_TRIANGLES;
         current = null;
@@ -58,8 +53,6 @@ public class Engine {
      * @param f Ideal value of the Frames Per Second for this window
      */
     public void init(String title, int width, int height, int f) {
-        t.width = width;
-        t.aspectRatio = (float)width /(float) height;
         this.fps = f;
         System.out.println("ENGINE: Initiating...");
         try {
@@ -89,6 +82,12 @@ public class Engine {
                 glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
                 currshader.init();
                 currshader.loadShader();
+                c = new Camera();
+                PerspectiveProjection p = new PerspectiveProjection();
+                p.aspectRatio = (float)width / (float)height;
+                p.width = (float)width;
+                p.calculateProjection();
+                c.setProjection(p);
             }, "Renderer");
             renderer.setTickDelay(1000/fps);
             renderer.runOnce();
@@ -133,17 +132,6 @@ public class Engine {
     }
     
     /**
-     * Calls the draw() function of the given entity exactly once, and thereafter 
-     * resuming the normal gameLoop() functionality. 
-     * @param e Entity to be drawn Once.
-     */
-    final public void drawOnce(Entity e){
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        draw(e);
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-    /**
      * Really just saves the Client from some effort.
      */
     final public void clearScreen(){
@@ -157,13 +145,13 @@ public class Engine {
     }
     
     final public void updateFrameSize(){
-        IntBuffer w = BufferUtils.createIntBuffer(1), h = BufferUtils.createIntBuffer(1);
+        int[] w = new int[1], h = new int[1];
         glfwGetFramebufferSize(window, w, h);
-        t.width = w.get(0);
-        t.aspectRatio = t.width / h.get(0);
-        glViewport(0,0,w.get(0),h.get(0));
-        currshader.updateProjection(t.calculateProjection());
-        currshader.updateTransformationVectors(t.calculateTransformation());
+        Projection p = c.getProjection();
+        p.setWidth(w[0]);
+        p.setAspectRatio((float)w[0]/h[0]);
+        glViewport(0, 0, w[0], h[0]);
+        currshader.updateProjection(p.calculateProjection().getProjectionMatrix());
     }
     
     /**
@@ -296,22 +284,12 @@ public class Engine {
     public long getWindow(){
         return window;
     }
-    public ProjectionTransform getProjeTransform(){
-        return t;
-    }
-    public Vec2 transformGLFWCoodsToOpenGLCoods(float x, float y){
-        float height = t.width/t.aspectRatio;
-        x = (x - t.width/2)/t.width;
-        y = -(y - height/2)/height;
-        return new Vec2(x, y);
-    }
     public Vec2 getMousePosinOpenGLCoods(){
-        DoubleBuffer mouseX = BufferUtils.createDoubleBuffer(1), mouseY = BufferUtils.createDoubleBuffer(1);
+        double mouseX[] = new double[1], mouseY[] = new double[1];
         GLFW.glfwGetCursorPos(window, mouseX, mouseY);
-        float height = t.width/t.aspectRatio;
+        Vec2 size = c.getProjection().getScreenSizePixels();
         return new Vec2(
-            ((float)mouseX.get(0) - t.width/2)*2/t.width,
-            (height/2 - (float)mouseY.get(0))*2/height);
+            (float)mouseX[0] - size.x, (size.y/2 - (float)mouseY[0])*2/size.y);
     }
         
     /**
@@ -322,26 +300,8 @@ public class Engine {
      * @param e 
      */
     public void draw(Entity e){
-        t.translateTo(e.translation);
-        t.rotateTo(e.rotation);
-        t.scaleTo(e.scale);
-        currshader.updateTransformationVectors(t.calculateTransformation());
+        currshader.updateTransformationVectors(e.calculateTransformation());
         e.draw(drawMode);
-    }
-        
-    /**
-     * Check the draw(Entity e) function.
-     * @param i Array if Entities to be Drawn.
-     */
-    public void draw(Entity[] i){
-        if(i == null) return;
-        for(Entity e: i){
-            t.translateTo(e.translation);
-            t.rotateTo(e.rotation);
-            t.scaleTo(e.scale);
-        currshader.updateTransformationVectors(t.calculateTransformation());
-            e.draw(drawMode);
-        }
     }
     
     

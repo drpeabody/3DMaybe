@@ -113,41 +113,21 @@ public class Vertex {
         v3.tangent.add(Tangent);
     }
     
-    public static FloatBuffer getDataFrom(Vertex[] v){
-        FloatBuffer f = BufferUtils.createFloatBuffer(v.length*SIZE);
-        for(Vertex x:v){
-            f.put(x.pos.x).put(x.pos.y).put(x.pos.z);
-            f.put(x.TextCoods.x).put(x.TextCoods.y);
-            f.put(x.normal.x).put(x.normal.y).put(x.normal.z);
-            f.put(x.tangent.x).put(x.tangent.y).put(x.tangent.z);
+    public static float[] getDataFrom(Vertex[] v){
+        float vert[] = new float[v.length * Vertex.SIZE];
+        int a = 0;
+        for(Vertex x: v){
+            vert[a++] = x.pos.x;vert[a++] = x.pos.y;vert[a++] = x.pos.z;
+            vert[a++] = x.TextCoods.x;vert[a++] = x.TextCoods.y;
+            vert[a++] = x.normal.x;vert[a++] = x.normal.y;vert[a++] = x.normal.z;
+            vert[a++] = x.tangent.x;vert[a++] = x.tangent.y;vert[a++] = x.tangent.z;
         }
-        return f;
-    }
-    public static IntBuffer getDataFrom(int[] idx){
-        IntBuffer b = BufferUtils.createIntBuffer(idx.length);
-        return b.put(idx);
+        return vert;
     }
 
     @Override
     public String toString() {
         return "Vertex: Pos: " + pos.toString() + " TCoord: " + TextCoods.toString() + 
                 " Normal: " + normal.toString() + " Tangent: " + tangent.toString();
-    }
-    @Override
-    public boolean equals(Object v) {
-        if (this == v) {
-            return true;
-        }
-        if (v == null) {
-            return false;
-        }
-        if (getClass() != v.getClass()) {
-            return false;
-        }
-        Vertex g = (Vertex) v;
-        return pos.equals(g.pos)
-                && normal.equals(g.normal)
-                && tangent.equals(g.tangent)
-                && TextCoods.equals(g.TextCoods);
     }
 }

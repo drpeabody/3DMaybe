@@ -8,17 +8,9 @@ import EhNew.shaders.Shader;
 import EhNew.util.Texture;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
 import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
-import static org.lwjgl.opengl.GL15.glBindBuffer;
-import static org.lwjgl.opengl.GL15.glBufferData;
-import static org.lwjgl.opengl.GL15.glGenBuffers;
 
 /**
  * @since Jul 8, 2017
@@ -152,28 +144,15 @@ public class Terrain extends DrawableEntity{
         
         for (int i = 0; i < width-1; i++) {
             for (int j = 0; j < height-1; j++) {
-                udx = i * width + j;
                 arr[b++] = udx;
                 arr[b++] = udx + 1;
                 arr[b++] = udx + 1 + width;
                 arr[b++] = udx + width;
+                udx++;
             }
         }
         
-        IntBuffer idx = Vertex.getDataFrom(arr);
-        FloatBuffer vert = Vertex.getDataFrom(v);
-        idx.flip();
-        vert.flip();
-        
-        indexCount = idx.limit();
-        indexOffset = 0;
-        idxID = glGenBuffers();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, idx, GL_STATIC_DRAW);
-
-        vertID = glGenBuffers();
-        glBindBuffer(GL_ARRAY_BUFFER, vertID);
-        glBufferData(GL_ARRAY_BUFFER, vert, GL_STATIC_DRAW);
+        load(Vertex.getDataFrom(v), arr);
     }
 
     @Override

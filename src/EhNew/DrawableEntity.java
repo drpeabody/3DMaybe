@@ -4,8 +4,6 @@ import EhNew.geom.Vertex;
 import EhNew.shaders.Shader;
 import EhNew.util.OBJLoader;
 import java.io.InputStream;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
 import static org.lwjgl.opengl.GL11.glDrawElements;
@@ -61,38 +59,6 @@ public abstract class DrawableEntity extends Entity{
         glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);
         glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_TANGENT);
     }
-
-    /*
-    @Override
-    public void drawInstanced(int drawMode, int countInstance) {
-        if((vertID + idxID) < 0){
-            throw new IllegalStateException("Attempting to draw Entity without creation");
-        }
-        if((indexCount + indexOffset) < 1){
-            throw new IllegalStateException("Attempting to draw unindexed Entity");
-        }
-        
-        glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_POSITION);
-        glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_TEXTURE_COOD);
-        glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);
-        glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_TANGENT);
-        
-        glBindBuffer(GL_ARRAY_BUFFER, vertID);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxID);
-        
-        glVertexAttribPointer(Vertex.POINTER_ATTRIB_POSITION, 3, GL_FLOAT, false, Vertex.SIZE, Vertex.OFFSET_POSITION);
-        glVertexAttribPointer(Vertex.POINTER_ATTRIB_TEXTURE_COOD, 2, GL_FLOAT, false, Vertex.SIZE, Vertex.OFFSET_TEXTURE_COORD);
-        glVertexAttribPointer(Vertex.POINTER_ATTRIB_NORMAL, 3, GL_FLOAT, false, Vertex.SIZE, Vertex.OFFSET_NORMAL);
-        glVertexAttribPointer(Vertex.POINTER_ATTRIB_TANGENT, 3, GL_FLOAT, false, Vertex.SIZE, Vertex.OFFSET_TANGENT);
-        
-        GL31.glDrawElementsInstanced(drawMode, indexCount, GL_UNSIGNED_INT, indexOffset, countInstance);
-        
-        glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_POSITION);
-        glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_TEXTURE_COOD);
-        glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);
-        glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_TANGENT);
-        
-    }*/
     
     public void load(InputStream s) {
         if (idxID != -1 || vertID != -1) {
@@ -104,20 +70,21 @@ public abstract class DrawableEntity extends Entity{
         
         Vertex.calcTangents(v, i, 3);
         
-        IntBuffer idx = Vertex.getDataFrom(i);
-        FloatBuffer vert = Vertex.getDataFrom(v);
-        indexCount = idx.limit();
-
-        idx.flip();
-        vert.flip();
+        load(Vertex.getDataFrom(v), i);
+    }
+    
+    public void load(float vartices[], int indices[]){
+        indexCount = indices.length;
         indexOffset = 0;
+        
         idxID = glGenBuffers();
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, idx, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 
         vertID = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vertID);
-        glBufferData(GL_ARRAY_BUFFER, vert, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vartices, GL_STATIC_DRAW);
+        
     }
     @Override
     public void destroy() {

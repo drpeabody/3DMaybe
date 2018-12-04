@@ -30,52 +30,16 @@ public class Main {
         Engine e = new Engine();
         e.init("Window Title", 1280, 720, 60);
         LevelSample l = new LevelSample(e);
-//        ShaderTest l = new ShaderTest(e);
         e.loadLevel(l);
         e.start(l);
     }
     
-    static class ShaderTest extends Level{
-        FactoryShader fs;
-
-        public ShaderTest(Engine main) {
-            super(main);
-            fs = new FactoryShader();
-        }
-
-        @Override
-        public void load() {
-            super.load(); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void draw() {
-            glBegin(GL_QUADS);
-            glVertex2f(-1f, -1f);
-            glVertex2f(-1f, 1f);
-            glVertex2f(1f, 1f);
-            glVertex2f(1f, -1f);
-            glEnd();
-        }
-
-        @Override
-        public void update() {
-            
-        }
-
-        @Override
-        public void destroy() {
-            
-        }
-        
-    }
-    
     static class LevelSample extends Level{
-        PictureBox h;
+        PictureBox healthLabel, armorLabel;
         HUDShader hs;
         HUDBuffer hud;
         FactoryShader f;
-        ProgressBar pb;
+        ProgressBar health, armor;
         
         Terrain ter;
         Cube sc2;
@@ -89,12 +53,16 @@ public class Main {
             super(e);
             f = (FactoryShader)engine.getShader();
             engine.getTextFactory().setSize(135);
-            engine.getTextFactory().setColor(new Vec4(0.8f,0.5f,1f,1f));
-            h = new PictureBox(new Vec2(), new Vec2(0.5f,0.5f), 
-                    engine.getTextFactory().createText("Ghanta"), new Vec4(1, 0, 1, 0f));
+            engine.getTextFactory().setColor(new Vec4(0.3f,0.7f,0.1f,1f));
+            healthLabel = new PictureBox(new Vec2(-0.9f, -1f), new Vec2(0.25f,0.2f), 
+                    engine.getTextFactory().createText("Health"), new Vec4(0f, 0f, 0f, 0f));
+            engine.getTextFactory().setColor(new Vec4(.1f,0.5f,1f,1f));
+            armorLabel = new PictureBox(new Vec2(-0.9f, -0.8f), new Vec2(0.25f,0.2f), 
+                    engine.getTextFactory().createText("Armor"), new Vec4(0f, 0f, 0f, 0f));
             hs = new HUDShader();
-            hud = new HUDBuffer(2, GL15.GL_DYNAMIC_DRAW);
-            pb = new ProgressBar(new Vec2(-0.9f, -0.9f), new Vec2(0, -0.8f), new Vec4(0f, 0f, 0.5f, 0.5f), 0f, 1f, null);
+            hud = new HUDBuffer(4, GL15.GL_DYNAMIC_DRAW);
+            armor = new ProgressBar(new Vec2(-0.6f, -0.75f), new Vec2(0, -0.65f), new Vec4(.1f,0.5f,1f,1f), 0.9f, 1f, null);
+            health = new ProgressBar(new Vec2(-.6f, -.95f), new Vec2(0, -.85f), new Vec4(.3f, .6f, 0f, 1f), 0.9f, 1f, null);
             ter = new Terrain(null, new Vec3(3f, 0.00001f, 3f), new Vec3(-60f, -2f, -60f), new Vec2(0.05f, 0.05f), f);
             s1 = new Sphere(f);
             s2 = new Sphere(f);
@@ -107,12 +75,8 @@ public class Main {
         @Override
         public void load() {
             hud.load();
-            pb.load(hud);
             hs.init();
             hs.loadShader();
-            engine.switchToShader(hs);
-            
-            //pb.animateDrawTillProgress(0.2f, 1f, 60, engine, 2000);
             
             glfwSetInputMode(engine.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
             engine.getCamera().setPos(new Vec3(0f, 0f, -7f));
@@ -125,19 +89,20 @@ public class Main {
                 }
             });
             
-            //pb.animateDrawTillProgress(0.6f, 1f, 60, engine, 1000);
-            
-            h.load(hud);
+            engine.switchToShader(hs);
+            health.load(hud);
+            armor.load(hud);
+            healthLabel.load(hud);
+            armorLabel.load(hud);
             s1.load();
             s2.load();
             sc2.load();
             a.load();
+            ter.load();
             
             a.translateBy(new Vec3(0f, 0f, 2f));
-            
             s2.translateBy(new Vec3(0f, 0f, 5f));
             s1.translateBy(new Vec3(0f, 0f, 1f));
-            ter.load();
             
             sc2.setTranslation(new Vec3(4f, 0, 1.5f));
             sc2.setScale(new Vec3(2f, 2f, 2f));
@@ -157,18 +122,14 @@ public class Main {
             m.pos.z = -10.0f;
             m.pos.y = -4f;
             
-            pb.animateDrawTillProgress(0.6f, 1f, 60, engine, 500);
-                        
-            pb.animateDrawTillProgress(1f, 1f, 60, engine, 300);
-            
             engine.switchToShader(f);
             f.updateDirectionalLighting(new DirectionalLight());
             l.setIdx(f.addPointLight(l));
             m.setIdx(f.addPointLight(m));
             f.finalizePointLights();
-            f.updateCameraMatrix(engine.getCamera().calculatecameraMatrix());
-            f.updateProjection(engine.getProjeTransform().calculateProjection());
-            f.updateCameraLocation(engine.getCamera().getPos().getArray());
+            
+            engine.getCamera().updateProjection(f);
+            engine.getCamera().updateCameraMatrices(f);
             
             glClearColor(0.2f, 0.2f, 0.4f, 1.0f);
         }
@@ -188,14 +149,16 @@ public class Main {
             engine.draw(a);
             engine.draw(ter);
             
-            
             f.updatePointLightProperty(l, f.UNIFORM_LIGHT_POSITION);
             f.updatePointLightProperty(m, f.UNIFORM_LIGHT_POSITION);
             
             engine.getCamera().updateCameraMatrices(f);
             
             engine.switchToShader(hs);
-            h.draw();
+            healthLabel.draw();
+            health.draw();
+            armor.draw();
+            armorLabel.draw();
         }
 
         @Override
@@ -217,7 +180,9 @@ public class Main {
             f.destroyShaders();
             hs.destroyShaders();
             hud.release();
-            h.destroy();
+            healthLabel.destroy();
+            armorLabel.destroy();
+            armor.destroy();
         }
     }
 }

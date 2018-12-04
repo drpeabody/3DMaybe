@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/geom/Terrain.java</file>
+            <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/util/Camera.java</file>
+            <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/math/Projection.java</file>
+            <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/math/PerspectiveProjection.java</file>
             <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/Test/Main.java</file>
-            <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/shaders/Shader_fragment.glsl</file>
+            <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/shaders/FactoryShader.java</file>
             <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/shaders/CamShader.java</file>
-            <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/geom/Sprite.java</file>
+            <file>file:/D:/Coding/Java/Projects/3DMaybe/src/EhNew/Engine.java</file>
         </group>
     </open-files>
 </project-private>

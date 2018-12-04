@@ -5,17 +5,20 @@ in vec3 Normal0;
 in vec3 WorldFragPos0;
 in vec3 Tangent0;
 
-struct Light{
+struct Light
+{
     vec3 color;
     float DiffInten, MatSpecInten, SpecPower;
 };
-uniform struct DirectionalLight{
+uniform struct DirectionalLight
+{
     vec3 dir;
     float AmbiInten;
     Light light;
 } dirLight;
 
-uniform struct PointLight{
+uniform struct PointLight
+{
     vec3 pos;
     float fallOff, cutOff;
     Light light;
@@ -38,15 +41,18 @@ vec3 CalcBumpedNormal()
     return normalize(mat3(Tangent, Bitangent, Normal) * BumpMapNormal);
 }
 
-vec4 calcLight(Light l, vec3 normal, vec3 dir){
+vec4 calcLight(Light l, vec3 normal, vec3 dir)
+{
     vec4 DiffColor = vec4(0,0,0,1), SpecColor = vec4(0,0,0,1);
     float DiffFactor = dot(normal, dir);
 
-    if(DiffFactor > 0){
+    if(DiffFactor > 0)
+    {
         DiffColor = vec4(l.color * l.DiffInten * DiffFactor, 1);
         float SpecularFactor = dot(normalize(WorldEyePos0 - WorldFragPos0), normalize(reflect(dir, normal)));
         
-        if (SpecularFactor > 0) {
+        if (SpecularFactor > 0)
+        {
             SpecularFactor = pow(SpecularFactor, l.SpecPower);
             SpecColor = vec4(l.color * l.MatSpecInten * SpecularFactor, 1);
         }
@@ -54,15 +60,17 @@ vec4 calcLight(Light l, vec3 normal, vec3 dir){
     return (DiffColor + SpecColor);
 }
 
-vec4 calcDirectionalLight(vec3 normal){
+vec4 calcDirectionalLight(vec3 normal)
+{
     vec4 AmbiColor = vec4(dirLight.light.color,1) * dirLight.AmbiInten;
     return calcLight(dirLight.light, normal, dirLight.dir) + AmbiColor;
 }
 
-vec4 calcPointLight(int idx, vec3 normal){
+vec4 calcPointLight(int idx, vec3 normal)
+{
     float dist = distance(WorldFragPos0, lights[idx].pos);
-    if(dist > lights[idx].cutOff) 
-        return vec4(0,0,0,1);
+
+    if(dist > lights[idx].cutOff) return vec4(0,0,0,1);
     return calcLight(lights[idx].light, normal, normalize(WorldFragPos0 - lights[idx].pos)) * 
         smoothstep(lights[idx].cutOff, lights[idx].fallOff, dist);
 }
@@ -72,10 +80,9 @@ void main(){
     vec3 normal = CalcBumpedNormal();
     vec4 lighting = calcDirectionalLight(normal);
     
-    for(int i = 0; i < numLights; i++){
-        lighting += calcPointLight(i, normal);
-    }
-    gl_FragColor = texture2D(diffuseMap, TextureCood0.st) * (lighting + texture2D(emmisiveMap, TextureCood0.st));
+    for(int i = 0; i < numLights; i++) lighting += calcPointLight(i, normal);
+
+    gl_FragColor = texture2D(diffuseMap, TextureCood0.st) * lighting + texture2D(emmisiveMap, TextureCood0.st);
 
     /*
     float dist = length(WorldEyePos0 - WorldFragPos0);

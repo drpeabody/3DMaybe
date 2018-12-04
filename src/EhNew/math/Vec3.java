@@ -106,7 +106,7 @@ public class Vec3 {
         z = ((sRx*sRz + cRx*sRy*cRz) * a) + ((sRx*cRz - cRx*sRy*sRz) * b) + ((cRx*cRy) * c);
     }
     public void counterRotateAboutAxes(Vec3 angle){
-        //Uses the fact the Counter rotation matrix is inverse or totation, which is
+        //Uses the fact the Counter rotation matrix is inverse of totation, which is
         //transpose of rotation.
         float cRx = (float) Math.cos(angle.x);
         float cRy = (float) Math.cos(angle.y);

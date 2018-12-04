@@ -62,6 +62,20 @@ public class Texture {
         data = BufferUtils.createByteBuffer(b.length).put(b);
         data.flip();
     }
+
+    public int getNumComp() {
+        return numComp;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+    
+    
     
     //This function needs to be optimised for multiple runs
     public void bufferData(){
@@ -71,6 +85,7 @@ public class Texture {
         glTexImage2D(target, 0, (numComp == 3) ? GL_RGB : GL_RGBA, width, height, 0, (numComp == 3) ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, data);
         glTexParameterf(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameterf(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     }
     public void changeImageTo(BufferedImage b){
         image = b;

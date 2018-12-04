@@ -1,5 +1,7 @@
 package EhNew.util;
 
+import EhNew.math.PerspectiveProjection;
+import EhNew.math.Projection;
 import EhNew.math.Vec2;
 import EhNew.math.Vec3;
 import EhNew.shaders.CamShader;
@@ -12,6 +14,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
  * @author Abhishek
  */
 public class Camera {
+    private Projection projection;
     private float flySpeed, mouseSpeed;
     protected Vec3 loc, head, left, target;
     
@@ -48,8 +51,9 @@ public class Camera {
         flySpeed = speed;
         mouseSpeed = mouseSensitivity;
         loc = new Vec3();
-        camMoved = camRotated = false;
+        camMoved = camRotated = true;
         dirMove = target.unitVector();
+        projection = new PerspectiveProjection();
     }
 
     public float getFlySpeed() {
@@ -70,7 +74,18 @@ public class Camera {
     public Vec3 getTarget() {
         return target;
     }
+    public Projection getProjection(){
+        return projection;
+    }
 
+    public void setProjection(Projection projection) {
+        this.projection = projection;
+    }
+    public void setCameraSpace(Vec3 head, Vec3 target, Vec3 left){
+        this.head = head;
+        this.target = target;
+        this.left = left;
+    }
     public void setFlySpeed(float flySpeed) {
         this.flySpeed = flySpeed;
     }
@@ -121,6 +136,10 @@ public class Camera {
         target = target.rotateAbout(left, Vangle).unitVector();
         head = target.cross(left);
         camRotated = true;
+    }
+    
+    public void updateCustomCameraMatrix(float mat[], CamShader f){
+        f.updateCameraMatrix(mat);
     }
     
     public float[] calculatecameraMatrix(){
@@ -190,5 +209,8 @@ public class Camera {
         }
         camMoved = false;
         camRotated = false;
+    }
+    public void updateProjection(CamShader f){
+        f.updateProjection(projection.getProjectionMatrix());
     }
 }

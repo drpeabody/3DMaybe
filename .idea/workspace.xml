@@ -7,72 +7,101 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a563051f-aed6-4dd3-800f-535a72553cbf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_stable_2017_10_25_custom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/EhNew/util/InstanceTransformBuffer.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/classes/EhNew/util/InstanceBuffer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/EhNew/util/InstanceBuffer.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/DrawableEntity.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/DrawableEntity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/Engine.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/Engine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/Entity.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/Entity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/Test/Main$LevelSample$1.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/Test/Main$LevelSample$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/Test/Main$LevelSample.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/Test/Main$LevelSample.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/Test/Main.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/Test/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/data/Arrow.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/data/Arrow.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/geom/Cube.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/geom/Cube.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/geom/Sphere.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/geom/Sphere.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/geom/Terrain.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/geom/Terrain.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/math/Matrix4f.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/math/Matrix4f.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/math/Transform.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/math/Transform.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/shaders/FactoryShader.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/shaders/FactoryShader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/shaders/HUDShader.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/shaders/HUDShader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/shaders/Shader.class" afterPath="$PROJECT_DIR$/build/classes/EhNew/shaders/Shader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/EhNew/shaders/Shader_vertex.glsl" afterPath="$PROJECT_DIR$/build/classes/EhNew/shaders/Shader_vertex.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/private/private.xml" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/DrawableEntity.java" afterPath="$PROJECT_DIR$/src/EhNew/DrawableEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/Engine.java" afterPath="$PROJECT_DIR$/src/EhNew/Engine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/Entity.java" afterPath="$PROJECT_DIR$/src/EhNew/Entity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/Test/Main.java" afterPath="$PROJECT_DIR$/src/EhNew/Test/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/data/Arrow.java" afterPath="$PROJECT_DIR$/src/EhNew/data/Arrow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/geom/Cube.java" afterPath="$PROJECT_DIR$/src/EhNew/geom/Cube.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/geom/Sphere.java" afterPath="$PROJECT_DIR$/src/EhNew/geom/Sphere.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/geom/Terrain.java" afterPath="$PROJECT_DIR$/src/EhNew/geom/Terrain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/math/Matrix4f.java" afterPath="$PROJECT_DIR$/src/EhNew/math/Matrix4f.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/math/Transform.java" afterPath="$PROJECT_DIR$/src/EhNew/math/Transform.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/shaders/FactoryShader.java" afterPath="$PROJECT_DIR$/src/EhNew/shaders/FactoryShader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/shaders/HUDShader.java" afterPath="$PROJECT_DIR$/src/EhNew/shaders/HUDShader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/shaders/Shader.java" afterPath="$PROJECT_DIR$/src/EhNew/shaders/Shader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EhNew/shaders/Shader_vertex.glsl" afterPath="$PROJECT_DIR$/src/EhNew/shaders/Shader_vertex.glsl" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/3DMaybe_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/3DMaybe_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lwjgl_stable_2017_10_25_custom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_stable_2017_10_25_custom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Run.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Run.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/built-jar.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/built-jar.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/Engine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/Test/Main$LevelSample.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/Test/Main$LevelSample.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/geom/Sprite.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/geom/Sprite.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/math/ProjectionTransform.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/math/ProjectionTransform.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/math/Transform.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/math/Transform.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/shaders/HUD_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/shaders/HUD_fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/shaders/HUD_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/shaders/HUD_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/shaders/Shader_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/shaders/Shader_fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/shaders/Shader_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/shaders/Shader_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/util/Camera$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/util/Camera$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/util/Camera$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/util/Camera$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/util/Camera.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/util/Camera.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/util/HUD/HUDButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/util/HUD/HUDButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/EhNew/util/Texture.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/EhNew/util/Texture.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/3DMaybe.jar" beforeDir="false" afterPath="$PROJECT_DIR$/dist/3DMaybe.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/README.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/dist/README.TXT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.mf" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.mf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/profiler/configurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/profiler/configurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/project.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/Test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/Test/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/geom/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/geom/Sprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/math/ProjectionTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/math/ProjectionTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/math/Transform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/math/Transform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/math/Vec3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/math/Vec3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/shaders/CamShader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/shaders/CamShader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/shaders/HUD_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/shaders/HUD_fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/shaders/HUD_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/shaders/HUD_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/shaders/Shader_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/shaders/Shader_fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/shaders/Shader_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/shaders/Shader_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/util/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/util/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/util/HUD/HUDBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/util/HUD/HUDBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/util/TextFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/util/TextFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EhNew/util/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EhNew/util/Texture.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FUSProjectUsageTrigger">
+    <session id="-612839995">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="DrawableEntity.java" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/EhNew/DrawableEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="17" column="3" lean-forward="false" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state relative-caret-position="203">
+              <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/EhNew/Test/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="31" column="29" lean-forward="true" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
-              <folding />
+            <state relative-caret-position="493">
+              <caret line="185" column="28" lean-forward="true" selection-start-line="185" selection-start-column="28" selection-end-line="185" selection-end-column="28" />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/EhNew/Test/Cut.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-696" />
           </provider>
         </entry>
       </file>
@@ -81,96 +110,60 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="313" />
+    <option name="y" value="-5" />
+    <option name="width" value="1398" />
+    <option name="height" value="1028" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="3DMaybe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="3DMaybe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="3DMaybe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="3DMaybe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EhNew" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="3DMaybe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="3DMaybe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EhNew" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
+          <expand>
+            <path>
+              <item name="3DMaybe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3DMaybe" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="3DMaybe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3DMaybe" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="3DMaybe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3DMaybe" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="EhNew" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="3DMaybe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3DMaybe" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="EhNew" type="462c0819:PsiDirectoryNode" />
+              <item name="Test" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/3DMaybe_jar/3DMaybe.jar" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="3Dmaybe`" />
+    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/Jem" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
-    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="3Dmaybe`" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -184,106 +177,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.RunFromArtiFacts">
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file id="idea.log" enabled="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <module />
-      <method />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="JarApplication" factoryName="JAR Application">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
-      <option name="SCRATCH_FILE_ID" value="0" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="3DMaybe" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
+  <component name="RunManager">
     <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
       <module name="" />
       <setting name="path" value="" />
@@ -320,6 +214,13 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+      <method />
+    </configuration>
     <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
       <module name="" />
       <setting name="path" value="" />
@@ -338,21 +239,71 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="RunFromArtiFacts" type="JarApplication" factoryName="JAR Application">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunFromArtiFacts" type="JarApplication" factoryName="JAR Application">
       <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/3DMaybe_jar/3DMaybe.jar" />
       <option name="WORKING_DIRECTORY" value="D:\Coding\Java\Projects\3DMaybe" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <envs />
-      <method />
+      <method v="2" />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="JAR Application.RunFromArtiFacts" />
-    </list>
-    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
       <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <module name="" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
   </component>
   <component name="SbtLocalSettings">
@@ -360,8 +311,8 @@
       <projects_view />
     </option>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -374,55 +325,54 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="-5" width="1920" height="1085" extended-state="6" />
     <layout>
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23819979" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" />
+      <window_info id="Capture Tool" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18327974" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.23819979" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="1" />
-    </breakpoint-manager>
-    <watches-manager />
-  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/EhNew/DrawableEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="17" column="3" lean-forward="false" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        <state relative-caret-position="203">
+          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/EhNew/Test/Cut.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-696" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/EhNew/Test/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="31" column="29" lean-forward="true" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
-          <folding />
+        <state relative-caret-position="493">
+          <caret line="185" column="28" lean-forward="true" selection-start-line="185" selection-start-column="28" selection-end-line="185" selection-end-column="28" />
         </state>
       </provider>
     </entry>

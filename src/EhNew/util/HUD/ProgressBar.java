@@ -65,22 +65,4 @@ public class ProgressBar extends PictureBox{
         TR.textCood.y = 1 - progressY;
         updateBuffer();
    }
-    
-    public void animateDrawTillProgress(float finalProgX, float finalprogY, int fps, Engine e, int TimeInMillis) {
-        int numframes = (int)(fps * (float)TimeInMillis / 1000);
-        float iniX = progressX, iniY = progressY, delX = finalProgX - iniX, delY = finalprogY - iniY;
-        float dX = delX/(float)numframes, X = iniX;
-        float dY = delY/(float)numframes, Y = iniY;
-        if(delX == 0f) delX = 1f;
-        if(delY == 0f) delY = 1f;
-        for (;numframes > 0;X += dX,Y += dY, numframes--) {
-            setProgressX(iniX + delX *(float)(Math.sin((2*X - iniX - finalProgX) / delX * Math.PI/2)));
-            setProgressY(iniY + delY *(float)(Math.sin((2*Y - iniY - finalprogY) / delY * Math.PI/2)));
-            draw();
-            e.updateScreen();
-            try {
-                Thread.sleep(1000 / fps);
-            } catch (Exception ex) {}
-        }
-    }
 }

@@ -13,4 +13,5 @@ public interface CamShader{
     
     public void updateCameraMatrix(float[] camMat);
     public void updateCameraLocation(float[] camLoc);
+    public void updateProjection(float[] projMat);
 }

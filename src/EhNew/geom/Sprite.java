@@ -6,14 +6,6 @@ import EhNew.math.Vec3;
 import EhNew.shaders.CamShader;
 import EhNew.shaders.Shader;
 import EhNew.util.Camera;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
-import static org.lwjgl.opengl.GL15.glBindBuffer;
-import static org.lwjgl.opengl.GL15.glBufferData;
-import static org.lwjgl.opengl.GL15.glGenBuffers;
 
 /**
  * @since Apr 14, 2018
@@ -52,20 +44,7 @@ public abstract class Sprite extends DrawableEntity{
         v[2].pos = new Vec3(1f, 1f, 0f);
         v[3].pos = new Vec3(0f, 1f, 0f);
         
-        IntBuffer idx = Vertex.getDataFrom(arr);
-        FloatBuffer vert = Vertex.getDataFrom(v);
-        idx.flip();
-        vert.flip();
-        
-        indexCount = idx.limit();
-        indexOffset = 0;
-        idxID = glGenBuffers();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, idx, GL_STATIC_DRAW);
-
-        vertID = glGenBuffers();
-        glBindBuffer(GL_ARRAY_BUFFER, vertID);
-        glBufferData(GL_ARRAY_BUFFER, vert, GL_STATIC_DRAW);
+        load(Vertex.getDataFrom(v), arr);
     }
     
     public CamShader getCamChader(){
@@ -77,17 +56,21 @@ public abstract class Sprite extends DrawableEntity{
     @Override
     public void draw(int drawMode) {
         bindTextures();
-//        Vec3 temp = c.getTarget();
-//        c.setTarget(translation.difference(c.getPos()));
-//        c.updateCameraMatrices(getCamChader());
+        
+        Vec3 X = c.getPos().difference(translation).unitVector();//(1, 0, 0)
+        
+        double cosPhi2 = 1 + X.x*X.x - X.y*X.y - X.z*X.z;
+        double cosPsi2 = 1 - X.x*X.x/cosPhi2;
+        double sinPsi = Math.sqrt(Math.abs(1 - cosPsi2));
+        double sinPhi = Math.sqrt(Math.abs(1 - cosPhi2));
+        
+//        rotation.y = (float)Math.acos(Math.sqrt(cosPhi2));
+//        rotation.z = (float)Math.acos(Math.sqrt(cosPsi2));
+        rotation.x = -(float)Math.acos((X.y*sinPsi + X.z*sinPhi*Math.sqrt(cosPsi2))/(sinPsi*sinPsi + sinPhi*sinPhi*cosPsi2));
+        
+        System.out.println(sinPsi);
+        
         super.draw(drawMode);
-//        c.setTarget(temp);
-//        c.updateCameraMatrices(getCamChader());
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
     }
     
     //Texture binding needs to be done manually.
