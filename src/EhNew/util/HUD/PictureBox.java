@@ -12,8 +12,8 @@ import org.lwjgl.opengl.GL13;
  * @author Abhishek
  */
 public class PictureBox extends HUDElement{
-    boolean isTextureDirty;
-    Texture t;
+    private boolean isTextureDirty;
+    private Texture t;
     
     public PictureBox(Vec2 pos, Vec2 size, BufferedImage text, Vec4 color){
         BL.pos.x = pos.x;

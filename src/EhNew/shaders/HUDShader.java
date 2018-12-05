@@ -1,6 +1,5 @@
 package EhNew.shaders;
 
-import static EhNew.shaders.Shader.compileShader;
 import org.lwjgl.opengl.GL13;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
@@ -52,16 +51,6 @@ public class HUDShader extends Shader{
     @Override
     public int getNormalMapTextureUnit() {
         return GL13.GL_TEXTURE1;
-    }
-
-    @Override
-    public int getInstanceTransformMapTextureUnit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getUniformOfLocationInstanceTransformMapSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

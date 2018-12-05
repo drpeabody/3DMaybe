@@ -18,10 +18,10 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
  */
 public class Terrain extends DrawableEntity{
     //Uses 16 bit Monochrome HeightMaps.
-    protected BufferedImage heightMap;
-    protected Texture tex, texNormal, emm;
-    protected Vec3 startPos, cellSize, endPos;
-    protected Vec2 TextureScale;
+    private BufferedImage heightMap;
+    private Texture tex, texNormal, emm;
+    private Vec3 startPos, cellSize, endPos;
+    private Vec2 TextureScale;
     private final float del;
 
     public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, Vec2 TexScale, Shader s) {
@@ -30,7 +30,7 @@ public class Terrain extends DrawableEntity{
         if(heightMap == null){
             try {
                 heightMap = ImageIO.read(Engine.class.getResourceAsStream("TestHeightMap.png"));
-            } catch (IOException ex) {}
+            } catch (IOException ignored) {}
         }
         this.cellSize = cellSize;
         this.startPos = startPos;

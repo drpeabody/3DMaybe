@@ -38,6 +38,10 @@ public class HUDVertex {
         this.texDom = texDom;
     }
 
+    public int getNumberOfFloats(){
+        return SIZE / 4;
+    }
+
     public Vec2 getPos() {
         return pos;
     }
@@ -51,10 +55,11 @@ public class HUDVertex {
     }
     
     public float[] getArray(){
-        return new float[]{pos.x, pos.y,
-                        textCood.x, textCood.y,
-                        color.r, color.g, color.b, color.a,
-                        texDom
+        return new float[]{
+            pos.x, pos.y,
+            textCood.x, textCood.y,
+            color.r, color.g, color.b, color.a,
+            texDom
         };
     }
 }

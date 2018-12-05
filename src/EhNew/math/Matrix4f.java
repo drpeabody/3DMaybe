@@ -13,10 +13,11 @@ public class Matrix4f {
             1f, 0f, 0f, 0f,
             0f, 1f, 0f, 0f,
             0f, 0f, 1f, 0f,
-            0f, 0f, 0f, 1f};
+            0f, 0f, 0f, 1f
+    };
     
     public Matrix4f(){
-        m = new float[]{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
+        m = new float[]{1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1};
     }
     public Matrix4f(Vec4 v1, Vec4 v2, Vec4 v3, Vec4 v4){
         m = new float[]{v1.r, v1.g, v1.b, v1.a, v2.r, v2.g, v2.b, v2.a, v3.r, v3.g, v3.b, v3.a, v4.r, v4.g, v4.b, v4.a};
@@ -24,7 +25,7 @@ public class Matrix4f {
     public Matrix4f(float f[]){
         m = new float[16];
         System.arraycopy(f, 0, m, 0, (f.length > 16) ? 16 : f.length);
-        if(f.length < 15) for (int j = f.length; j < 16; j++) m[j] = 0;
+        for (int j = f.length; j < 16; j++) m[j] = 0f;
     }
 
     @Override
@@ -35,20 +36,5 @@ public class Matrix4f {
                 m[ 8] + ",\t" + m[ 9] + ",\t" + m[10] + ",\t" + m[11] + ",\n" + 
                 m[12] + ",\t" + m[13] + ",\t" + m[14] + ",\t" + m[15] + ")"; 
     }
-    
-    public float[] getArray(){
-        return m;
-    }
-    public FloatBuffer getBuffer(){
-        FloatBuffer b = BufferUtils.createFloatBuffer(16);
-        return (FloatBuffer)b.put(m).flip();
-    }
-    public static FloatBuffer getIndentityBuffer(){
-        FloatBuffer f = BufferUtils.createFloatBuffer(16).put(identity);
-        f.flip();
-        return f;
-    }
-    public static float[] getIdentityArray(){
-        return identity;
-    }
+
 }

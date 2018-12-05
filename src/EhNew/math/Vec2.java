@@ -10,9 +10,7 @@ public class Vec2 {
         x = a;
         y = b;
     }
-    public Vec2(){
-        x = y = 0.0f;
-    }
+    public Vec2(){}
 
     @Override
     public String toString() {

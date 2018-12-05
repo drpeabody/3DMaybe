@@ -10,8 +10,7 @@ package EhNew.shaders;
  * @author Abhishek
  */
 public interface CamShader{
-    
-    public void updateCameraMatrix(float[] camMat);
-    public void updateCameraLocation(float[] camLoc);
-    public void updateProjection(float[] projMat);
+    void updateCameraMatrix(float[] camMat);
+    void updateCameraLocation(float[] camLoc);
+    void updateProjection(float[] projMat);
 }

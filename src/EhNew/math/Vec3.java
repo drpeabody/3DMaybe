@@ -1,8 +1,5 @@
 package EhNew.math;
 
-import java.nio.FloatBuffer;
-import org.lwjgl.BufferUtils;
-
 /**
  * @since 22 Jan, 2016
  * @author Abhishek
@@ -14,9 +11,7 @@ public class Vec3 {
         y = b;
         z = c;
     }
-    public Vec3() {
-        x=y=z=0.0f;
-    }
+    public Vec3(){}
     
     public Vec3 sum(Vec3 v){
        return new Vec3(x+v.x, y+v.y, z+v.z);
@@ -106,7 +101,7 @@ public class Vec3 {
         z = ((sRx*sRz + cRx*sRy*cRz) * a) + ((sRx*cRz - cRx*sRy*sRz) * b) + ((cRx*cRy) * c);
     }
     public void counterRotateAboutAxes(Vec3 angle){
-        //Uses the fact the Counter rotation matrix is inverse of totation, which is
+        //Uses the fact the Counter rotation matrix is inverse of rotation, which is
         //transpose of rotation.
         float cRx = (float) Math.cos(angle.x);
         float cRy = (float) Math.cos(angle.y);
@@ -129,12 +124,6 @@ public class Vec3 {
     
     public float[] getArray(){
         return new float[]{x, y, z};
-    }
-    
-    public FloatBuffer getBuffer(){
-        FloatBuffer f = BufferUtils.createFloatBuffer(3);
-        f.put(x).put(y).put(z).flip();
-        return f;
     }
     
     @Override

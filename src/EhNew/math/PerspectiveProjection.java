@@ -5,13 +5,13 @@ package EhNew.math;
  * @author Abhishek
  */
 public class PerspectiveProjection implements Projection{
-    public float aspectRatio;
-    public float width;
-    public float fieldOfView;
-    public float zNear;
-    public float zFar;
+    private float aspectRatio;
+    private float width;
+    private float fieldOfView;
+    private float zNear;
+    private float zFar;
     
-    float[] projectionMatrix;
+    private float[] projectionMatrix;
     
     public PerspectiveProjection(){
         super();
@@ -35,6 +35,11 @@ public class PerspectiveProjection implements Projection{
     public float getHeight(){
         return width/aspectRatio;
     }
+
+    public float getWidth() {
+        return width;
+    }
+
     @Override
     public PerspectiveProjection calculateProjection() {
         projectionMatrix = (new float[] {
@@ -42,16 +47,6 @@ public class PerspectiveProjection implements Projection{
             0.0f, 1.0f/(float)(Math.tan(fieldOfView/2)), 0.0f, 0.0f,
             0.0f, 0.0f, (-zNear -zFar)/(zNear - zFar), (2*zNear*zFar)/(zNear - zFar),
             0.0f, 0.0f, 1.0f, 0.0f});
-        return this;
-    }
-    
-    public PerspectiveProjection resetProjection(){
-        projectionMatrix = null;
-        return this;
-    }
-    
-    public PerspectiveProjection setProjection(float f[]){
-        projectionMatrix = f;
         return this;
     }
 

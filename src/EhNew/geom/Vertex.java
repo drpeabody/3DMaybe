@@ -2,9 +2,6 @@ package EhNew.geom;
 
 import EhNew.math.Vec2;
 import EhNew.math.Vec3;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import org.lwjgl.BufferUtils;
 
 /**
  * @author Abhishek
@@ -87,7 +84,7 @@ public class Vertex {
             v2.tangent.add(Tangent);
     }
     
-    public static void calcTangents(Vertex v0, Vertex v1, Vertex v2, Vertex v3) {
+    protected static void calcTangents(Vertex v0, Vertex v1, Vertex v2, Vertex v3) {
         Vec3 Edge1 = v1.pos.difference(v0.pos);
         Vec3 Edge2 = v3.pos.difference(v2.pos);
 

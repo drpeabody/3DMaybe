@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  */
 public class HUDButton extends PictureBox{
     
-    Runnable r;
+    private Runnable r;
 
     public HUDButton(Vec2 pos, Vec2 size, BufferedImage text, Vec4 color, Runnable r) {
         super(pos, size, text, color);

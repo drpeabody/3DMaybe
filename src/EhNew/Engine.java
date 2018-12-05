@@ -57,7 +57,7 @@ public class Engine {
         System.out.println("ENGINE: Initiating...");
         try {
             renderer = new TickManager(() -> {
-                if (glfwInit() != true) {
+                if (!glfwInit()) {
                     throw new IllegalStateException("Failed to init glfw");
                 }
                 glfwDefaultWindowHints();
@@ -84,8 +84,8 @@ public class Engine {
                 currshader.loadShader();
                 c = new Camera();
                 PerspectiveProjection p = new PerspectiveProjection();
-                p.aspectRatio = (float)width / (float)height;
-                p.width = (float)width;
+                p.setAspectRatio( (float)width / (float)height );
+                p.setWidth( (float)width );
                 p.calculateProjection();
                 c.setProjection(p);
             }, "Renderer");
@@ -164,7 +164,7 @@ public class Engine {
         current.draw();
         glfwSwapBuffers(window);
         glfwPollEvents();
-        if (glfwWindowShouldClose(window) != false) {
+        if (glfwWindowShouldClose(window)) {
             stop();
         }
     }
@@ -297,7 +297,7 @@ public class Engine {
      * this function updates the standard Transformation Matrices, also called the 
      * Model Matrices. It then makes uniform calls on the shader to update the Matrix
      * and draws the given Entity with the current DrawMode.
-     * @param e 
+     * @param e Entity to be drawn
      */
     public void draw(Entity e){
         currshader.updateTransformationVectors(e.calculateTransformation());

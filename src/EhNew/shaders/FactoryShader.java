@@ -2,7 +2,6 @@ package EhNew.shaders;
 
 import EhNew.data.DirectionalLight;
 import EhNew.data.PointLight;
-import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL13;
 import static org.lwjgl.opengl.GL20.*;
@@ -38,10 +37,10 @@ public class FactoryShader extends Shader implements CamShader{
     public final int TEXTURE_UNIT_NORMAL_MAP = 1;
     public final int TEXTURE_UNIT_EMMISIVE_MAP = 2;
     
-    int numPointLights;
+    private int numPointLights;
     
-    int camMatLoc;
-    int camLocLoc;
+    private int camMatLoc;
+    private int camLocLoc;
 
     public FactoryShader(){
         super();
@@ -71,17 +70,14 @@ public class FactoryShader extends Shader implements CamShader{
     
     public void updatePointLightProperty(PointLight l, String property){
         String light = UNIFORM_POINTLIGHT_ARRAY + "[" + l.getIdx() + "]";
+        float f[];
         switch(property){
             case UNIFORM_LIGHT_COLOR:
-                FloatBuffer f = BufferUtils.createFloatBuffer(3);
-                f.put(l.color.x).put(l.color.y).put(l.color.z);
-                f.flip();
+                f = new float[] {l.color.x, l.color.y, l.color.z };
                 glUniform3fv(getUniformLocation(light + UNIFORM_LIGHT_COLOR), f);
                 break;
             case UNIFORM_LIGHT_POSITION:
-                f = BufferUtils.createFloatBuffer(3);
-                f.put(l.pos.x).put(l.pos.y).put(l.pos.z);
-                f.flip();
+                f = new float[] {l.pos.x, l.pos.y, l.pos.z };
                 glUniform3fv(getUniformLocation(light + UNIFORM_LIGHT_POSITION), f);
                 break;
             case UNIFORM_LIGHT_DIFFUSE_STRENGTH:
@@ -110,15 +106,12 @@ public class FactoryShader extends Shader implements CamShader{
         glUniform1f(getUniformLocation(light + UNIFORM_LIGHT_SPECULAR_STRENGTH), l.specInten);
         glUniform1f(getUniformLocation(light + UNIFORM_LIGHT_CUTOFF), l.cutOff);
         glUniform1f(getUniformLocation(light + UNIFORM_LIGHT_FALLOFF), l.fallOff);
-        
-        FloatBuffer f = BufferUtils.createFloatBuffer(3);
-        f.put(l.color.x).put(l.color.y).put(l.color.z);
-        f.flip();
+
+        float f[] = new float[] {l.color.x, l.color.y, l.color.z };
         glUniform3fv(getUniformLocation(light + UNIFORM_LIGHT_COLOR), f);
-        f = BufferUtils.createFloatBuffer(3);
-        f.put(l.pos.x).put(l.pos.y).put(l.pos.z);
-        f.flip();
-        glUniform3fv(getUniformLocation(light + UNIFORM_LIGHT_POSITION), f);
+
+        float g[] = new float[] {l.pos.x, l.pos.y, l.pos.z };
+        glUniform3fv(getUniformLocation(light + UNIFORM_LIGHT_POSITION), g);
         numPointLights++;
         return numPointLights -1;
     }
@@ -127,20 +120,16 @@ public class FactoryShader extends Shader implements CamShader{
         glUniform1f(getUniformLocation(UNIFORM_DIRECTIONAL_LIGHT + UNIFORM_LIGHT_AMBIENT_STRENGTH), l.ambInten);
         glUniform1f(getUniformLocation(UNIFORM_DIRECTIONAL_LIGHT + UNIFORM_LIGHT_DIFFUSE_STRENGTH), l.diffInten);
         glUniform1f(getUniformLocation(UNIFORM_DIRECTIONAL_LIGHT + UNIFORM_LIGHT_SPECULAR_POWER), l.specPower);
-        FloatBuffer f = BufferUtils.createFloatBuffer(3);
-        f.put(l.color.x).put(l.color.y).put(l.color.z);
-        f.flip();
+
+        float f[] = new float[] {l.color.x, l.color.y, l.color.z };
         glUniform3fv(getUniformLocation(UNIFORM_DIRECTIONAL_LIGHT + UNIFORM_LIGHT_COLOR), f);
-        f = BufferUtils.createFloatBuffer(3);
-        f.put(l.dir.x).put(l.dir.y).put(l.dir.z);
-        f.flip();
-        glUniform3fv(getUniformLocation(UNIFORM_DIRECTIONAL_LIGHT + UNIFORM_LIGHT_DIR), f);
+
+        float g[] = new float[] {l.dir.x, l.dir.y, l.dir.z };
+        glUniform3fv(getUniformLocation(UNIFORM_DIRECTIONAL_LIGHT + UNIFORM_LIGHT_DIR), g);
     }
     public void updateAmbientLighting(DirectionalLight l){
         glUniform1f(getUniformLocation(UNIFORM_DIRECTIONAL_LIGHT + UNIFORM_LIGHT_AMBIENT_STRENGTH), l.ambInten);
-        FloatBuffer f = BufferUtils.createFloatBuffer(3);
-        f.put(l.color.x).put(l.color.y).put(l.color.z);
-        f.flip();
+        float f[] = new float[] {l.color.x, l.color.y, l.color.z };
         glUniform3fv(getUniformLocation(UNIFORM_DIRECTIONAL_LIGHT + UNIFORM_LIGHT_COLOR), f);
     }
     @Override
@@ -174,14 +163,5 @@ public class FactoryShader extends Shader implements CamShader{
     @Override
     public int getEmmisiveMapTextureUnit(){
         return GL13.GL_TEXTURE2;
-    }
-    @Override
-    public int getInstanceTransformMapTextureUnit(){
-        return GL13.GL_TEXTURE2;
-    }
-
-    @Override
-    public int getUniformOfLocationInstanceTransformMapSize() {
-        return getUniformLocation(UNIFORM_INSTANCE_TRANSFORM_MAP_SIZE);
     }
 }

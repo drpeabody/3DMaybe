@@ -5,6 +5,8 @@ in vec3 Normal0;
 in vec3 WorldFragPos0;
 in vec3 Tangent0;
 
+out vec4 fragColor;
+
 struct Light
 {
     vec3 color;
@@ -82,7 +84,7 @@ void main(){
     
     for(int i = 0; i < numLights; i++) lighting += calcPointLight(i, normal);
 
-    gl_FragColor = texture2D(diffuseMap, TextureCood0.st) * lighting + texture2D(emmisiveMap, TextureCood0.st);
+    fragColor = texture2D(diffuseMap, TextureCood0.st) * lighting + texture2D(emmisiveMap, TextureCood0.st);
 
     /*
     float dist = length(WorldEyePos0 - WorldFragPos0);

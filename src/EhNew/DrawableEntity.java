@@ -21,8 +21,8 @@ public abstract class DrawableEntity extends Entity{
      TExture Units.
     */
     protected Shader s;
-    protected int vertID, idxID;
-    protected int indexCount, indexOffset;
+    private int vertID, idxID;
+    private int indexCount, indexOffset;
     
     public DrawableEntity(Shader s){
         super();

@@ -13,7 +13,7 @@ public abstract class Entity {
     public abstract void draw(int drawMode);
     public abstract void destroy();
     
-    protected Entity(){
+    Entity(){
         rotation = new Vec3();
         scale = new Vec3(1.0f, 1.0f, 1.0f);
         translation = new Vec3();

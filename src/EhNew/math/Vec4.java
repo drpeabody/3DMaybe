@@ -17,9 +17,7 @@ public class Vec4 {
         b = z;
         a = w;
     }
-    public Vec4(){
-        r=g=b=a=0.0f;
-    }
+    public Vec4(){}
     
     public Vec4 hamiltonProduct(Vec4 v){
         return new Vec4(

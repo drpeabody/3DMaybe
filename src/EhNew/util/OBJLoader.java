@@ -21,7 +21,7 @@ public class OBJLoader {
         ArrayList<Vec3> verts = new ArrayList<>();
         ArrayList<Vec3> norms = new ArrayList<>();
         ArrayList<Vec2> coords = new ArrayList<>();
-        ArrayList<String> verDat = new ArrayList();
+        ArrayList<String> verDat = new ArrayList<>();
         String line;
 
         try(BufferedReader br = new BufferedReader(new InputStreamReader(f))) {

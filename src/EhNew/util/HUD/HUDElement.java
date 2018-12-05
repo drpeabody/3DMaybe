@@ -2,9 +2,8 @@ package EhNew.util.HUD;
 
 import EhNew.math.Vec2;
 import EhNew.math.Vec4;
-import java.nio.FloatBuffer;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
+
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
 
 /**
@@ -57,12 +56,12 @@ public abstract class HUDElement {
     
     public void updateBuffer(){
         buffer.bind();
-        FloatBuffer f = BufferUtils.createFloatBuffer(HUDVertex.SIZE*4/4)
-                .put(TR.getArray())
-                .put(BR.getArray())
-                .put(BL.getArray())
-                .put(TL.getArray());
-        f.flip();
+        int numfloats = HUDVertex.SIZE / 4;
+        float f[] = new float[numfloats * 4];
+        System.arraycopy(TR.getArray(), 0, f, 0, numfloats);
+        System.arraycopy(BR.getArray(), 0, f,        numfloats, numfloats);
+        System.arraycopy(BL.getArray(), 0, f, 2 * numfloats, numfloats);
+        System.arraycopy(TL.getArray(), 0, f, 3 * numfloats, numfloats);
         GL15.glBufferSubData(GL_ARRAY_BUFFER, bufferOffset, f);
     }
     
@@ -125,17 +124,13 @@ public abstract class HUDElement {
     
     public boolean contains(Vec2 v){
         if(v.x >= BL.pos.x && v.y >= BL.pos.y){
-            if(v.x <= TR.pos.x && v.y <= TR.pos.y){
-                return true;
-            }
+            return v.x <= TR.pos.x && v.y <= TR.pos.y;
         }
         return false;
     }
     public boolean contains(float x, float y){
         if(x >= BL.pos.x && y >= BL.pos.x){
-            if(x <= TR.pos.x && y <= BR.pos.y){
-                return true;
-            }
+            return x <= TR.pos.x && y <= BR.pos.y;
         }
         return false;
     }

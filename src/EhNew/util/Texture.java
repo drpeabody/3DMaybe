@@ -14,10 +14,10 @@ import org.lwjgl.opengl.GL13;
  * @author Abhishek
  */
 public class Texture {
-    int id, target, unit, numComp;
-    BufferedImage image;
-    ByteBuffer data;
-    int height, width;
+    private int id, target, unit, numComp;
+    private BufferedImage image;
+    private ByteBuffer data;
+    private int height, width;
     
     public Texture(int TextureTarget, int textureUnit, String fileName){
         id = -1;
@@ -33,7 +33,10 @@ public class Texture {
             try {
                 System.out.println("Specified TextureFile not Found, Reading default Texture");
                 image = ImageIO.read(Engine.class.getResourceAsStream("null.png"));
-            } catch (IOException ex1) {}
+            } catch (IOException ignored) {
+                System.out.println("Fatal Error in reading System File.");
+                System.exit(1);
+            }
         }
         height = image.getHeight();
         width = image.getWidth();
@@ -74,9 +77,7 @@ public class Texture {
     public int getWidth() {
         return width;
     }
-    
-    
-    
+
     //This function needs to be optimised for multiple runs
     public void bufferData(){
         GL13.glActiveTexture(unit);

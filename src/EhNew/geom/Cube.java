@@ -10,7 +10,7 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
  * @author Abhishek
  */
 public class Cube extends DrawableEntity{
-    Texture t, normal, emmisive;
+    private Texture t, normal, emmisive;
     
     public Cube(Shader s){
         super(s);

@@ -1,5 +1,7 @@
 package EhNew.shaders;
 
+import org.lwjgl.opengl.GL20;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,7 +13,7 @@ import static org.lwjgl.opengl.GL20.*;
  * @author Abhishek
  */
 public abstract class Shader {
-    protected int programID;
+    int programID;
     protected ArrayList<Integer> shaders;
     
     public Shader(){
@@ -26,7 +28,7 @@ public abstract class Shader {
         if(programID == -1) throw new IllegalStateException("Shader not Initted.");
         glUseProgram(programID);
     }
-    public void addShader(int shader) {
+    void addShader(int shader) {
         if(programID == -1) throw new IllegalStateException("Shader not Initted.");
         if (!glIsShader(shader)) throw new IllegalArgumentException("Invalid Shader.");
         glAttachShader(programID, shader);
@@ -39,20 +41,16 @@ public abstract class Shader {
         programID = -1;
     }
     
-    public int getUniformLocation(String s){
+    int getUniformLocation(String s){
         return glGetUniformLocation(programID, s);
     }
     public void finalizeShader() {
         if(programID == -1) throw new IllegalStateException("Processor not Initted.");
-        shaders.stream().map((i) -> {
-            glDetachShader(programID, i);
-            return i;
-        }).forEach((i) -> {
-            glDeleteShader(i);
-        });
+        shaders.stream().peek((i) -> glDetachShader(programID, i))
+                .forEach(GL20::glDeleteShader);
     }
     
-    public static int compileShader(InputStream in, int type) {
+    static int compileShader(InputStream in, int type) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             StringBuilder program = new StringBuilder();
@@ -70,7 +68,7 @@ public abstract class Shader {
                 System.exit(1);
             }
             return sh;
-        } catch (Exception e) {}
+        } catch (Exception ignored) {}
         return -1;
     }
     
@@ -83,6 +81,4 @@ public abstract class Shader {
     public abstract int getDiffuseMapTextureUnit();
     public abstract int getNormalMapTextureUnit();
     public abstract int getEmmisiveMapTextureUnit();
-    public abstract int getInstanceTransformMapTextureUnit();
-    public abstract int getUniformOfLocationInstanceTransformMapSize();
 }

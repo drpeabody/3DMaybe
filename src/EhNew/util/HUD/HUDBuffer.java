@@ -14,7 +14,7 @@ public class HUDBuffer {
     //for buffereing all the HUDElements without having to buffer them individually.
 
     private final int size;//follows no of floats where 1 HUDVertex = 9 floats
-    int usage;
+    private int usage;
     private int filled;//follows no of bytes
     private int id;
     
