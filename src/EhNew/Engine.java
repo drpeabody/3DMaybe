@@ -18,7 +18,6 @@ import static org.lwjgl.opengl.GL11.*;
  * @author Abhishek
  */
 public class Engine {
-    private final int drawMode;
     private int fps;
     private long window;
     protected Camera c;
@@ -34,7 +33,6 @@ public class Engine {
      */
     public Engine(){
         window = -1;
-        drawMode = GL_TRIANGLES;
         current = null;
         updater = null;
         renderer = null;
@@ -271,7 +269,7 @@ public class Engine {
         registerLevel(l);
         resumeRenderer();
     }
-    
+
     public Shader getShader(){
         return currshader;
     }
@@ -291,18 +289,5 @@ public class Engine {
         return new Vec2(
             ((float)mouseX[0])*2/size.x - 1f, 1f + (1f - (float)mouseY[0])*2/size.y);
     }
-        
-    /**
-     * Assuming basic shader functionality to be available in the current Shader, 
-     * this function updates the standard Transformation Matrices, also called the 
-     * Model Matrices. It then makes uniform calls on the shader to update the Matrix
-     * and draws the given Entity with the current DrawMode.
-     * @param e Entity to be drawn
-     */
-    public void draw(Entity e){
-        currshader.updateTransformationVectors(e.calculateTransformation());
-        e.draw(drawMode);
-    }
-    
     
 }

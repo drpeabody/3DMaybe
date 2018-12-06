@@ -4,7 +4,7 @@ import EhNew.Engine;
 import EhNew.Level;
 import EhNew.geom.Axes;
 import EhNew.shaders.FactoryShader;
-import EhNew.data.Arrow;
+import EhNew.geom.Arrow;
 import EhNew.geom.Cube;
 import EhNew.data.DirectionalLight;
 import EhNew.util.HUD.*;
@@ -147,12 +147,12 @@ public class Main {
             //to correctly implement transformation for each entity without the user having to worry about it
             //Passing an array of a set of large objects will speed up this thing
 
-            engine.draw(sc2);
-            engine.draw(s1);
-            engine.draw(s2);
-            engine.draw(a);
-            engine.draw(ax);
-            engine.draw(ter);
+            sc2.draw();
+            s1.draw();
+            s2.draw();
+            a.draw();
+            ax.draw();
+            ter.draw();
             
             f.updatePointLightProperty(l, f.UNIFORM_LIGHT_POSITION);
             f.updatePointLightProperty(m, f.UNIFORM_LIGHT_POSITION);

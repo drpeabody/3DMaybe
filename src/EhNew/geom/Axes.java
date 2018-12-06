@@ -1,14 +1,9 @@
 package EhNew.geom;
 
 import EhNew.DrawableEntity;
-import EhNew.Engine;
-import EhNew.math.Vec2;
 import EhNew.math.Vec3;
 import EhNew.shaders.FactoryShader;
 import EhNew.shaders.Shader;
-import EhNew.util.Texture;
-
-import java.awt.image.BufferedImage;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
@@ -16,6 +11,10 @@ import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.glBindBuffer;
 import static org.lwjgl.opengl.GL20.*;
 
+/**
+ * @since 6 Dec, 2018
+ * @author Abhishek
+ */
 public class Axes extends DrawableEntity {
 
     public Axes(Shader s) {
@@ -41,7 +40,7 @@ public class Axes extends DrawableEntity {
     }
 
     @Override
-    public void draw(int drawMode) {
+    public void draw() {
         glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_POSITION);
         glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_TEXTURE_COOD);
         glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);

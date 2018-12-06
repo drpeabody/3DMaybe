@@ -1,12 +1,12 @@
-package EhNew.data;
+package EhNew.geom;
 
-import EhNew.DrawableEntity;
+import EhNew.TexturedEntity;
 import EhNew.shaders.Shader;
 
 /**
  * @author Abhishek
  */
-public class Arrow extends DrawableEntity{
+public class Arrow extends TexturedEntity {
 
     public Arrow(Shader s){
         super(s);
@@ -14,12 +14,7 @@ public class Arrow extends DrawableEntity{
     
     @Override
     public void load() {
+        super.load();
         load(Arrow.class.getResourceAsStream("arrow.obj"));
-    }
-    
-    
-    @Override
-    public void draw(int drawMode) {
-        super.draw(drawMode);
     }
 }

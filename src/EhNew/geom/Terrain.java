@@ -1,25 +1,26 @@
 package EhNew.geom;
 
-import EhNew.DrawableEntity;
 import EhNew.Engine;
+import EhNew.TexturedEntity;
 import EhNew.math.Vec2;
 import EhNew.math.Vec3;
 import EhNew.shaders.Shader;
 import EhNew.util.Texture;
+import org.lwjgl.opengl.GL11;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import org.lwjgl.opengl.GL11;
+
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 
 /**
  * @since Jul 8, 2017
  * @author Abhishek
  */
-public class Terrain extends DrawableEntity{
+public class Terrain extends TexturedEntity {
     //Uses 16 bit Monochrome HeightMaps.
     private BufferedImage heightMap;
-    private Texture tex, texNormal, emm;
     private Vec3 startPos, cellSize, endPos;
     private Vec2 TextureScale;
     private final float del;
@@ -34,41 +35,22 @@ public class Terrain extends DrawableEntity{
         }
         this.cellSize = cellSize;
         this.startPos = startPos;
-        tex = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), "null.png");
-        texNormal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(),"nullN.png");
-        emm = new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(),"nullE.png");
         TextureScale = TexScale;
         endPos = null;
         del = heightMap.getRGB(0,0);
     }
-    public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, BufferedImage texture, BufferedImage normal, Vec2 texScale, Shader s) {
-        super(s);
-        this.heightMap = highetmap;
-        if(heightMap == null){
-            try {
-                heightMap = ImageIO.read(Engine.class.getResourceAsStream("TestHeightMap.png"));
-            } catch (IOException ignored) {}
-        }
-        this.cellSize = cellSize;
-        TextureScale = texScale;
-        this.startPos = startPos;
-        tex = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), texture);
-        texNormal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), normal);
-        emm = new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), "nullE.png");
-        endPos = null;
-        del = heightMap.getRGB(0,0);
-    }
+
     public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos,
                    BufferedImage texture, BufferedImage normal, BufferedImage emmisive,
                    Vec2 texScale, Shader s) {
-        super(s);
+        super(s,
+                new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), texture),
+                new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), normal),
+                new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), emmisive));
         this.heightMap = highetmap;
         this.cellSize = cellSize;
         TextureScale = texScale;
         this.startPos = startPos;
-        tex = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), texture);
-        texNormal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), normal);
-        emm = new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), emmisive);
         endPos = null;
         del = heightMap.getRGB(0,0);
     }
@@ -103,12 +85,8 @@ public class Terrain extends DrawableEntity{
     
     @Override
     public void load() {
-        tex.loadFromImage();
-        tex.bufferData();
-        texNormal.loadFromImage();
-        texNormal.bufferData();
-        emm.loadFromImage();
-        emm.bufferData();
+        super.load();
+        drawMode = GL11.GL_QUADS;
         
         final int width = heightMap.getWidth();
         final int height = heightMap.getHeight();
@@ -161,24 +139,5 @@ public class Terrain extends DrawableEntity{
         }
         
         load(Vertex.getDataFrom(v), arr);
-    }
-
-    @Override
-    public void draw(int drawMode) {
-        texNormal.bind();
-        tex.bind();
-        emm.bind();
-        super.draw(GL11.GL_QUADS);
-        tex.unBind();
-        emm.unBind();
-        texNormal.unBind();
-    }
-    
-    @Override
-    public void destroy(){
-        super.destroy();
-        tex.destroy();
-        texNormal.destroy();
-        emm.destroy();
     }
 }

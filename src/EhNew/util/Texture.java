@@ -69,11 +69,9 @@ public class Texture {
     public int getNumComp() {
         return numComp;
     }
-
     public int getHeight() {
         return height;
     }
-
     public int getWidth() {
         return width;
     }
@@ -83,7 +81,8 @@ public class Texture {
         GL13.glActiveTexture(unit);
         id = glGenTextures();
         glBindTexture(target, id);
-        glTexImage2D(target, 0, (numComp == 3) ? GL_RGB : GL_RGBA, width, height, 0, (numComp == 3) ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(target, 0, (numComp == 3) ? GL_RGB : GL_RGBA, width, height,
+                0, (numComp == 3) ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, data);
         glTexParameterf(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameterf(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 //        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
