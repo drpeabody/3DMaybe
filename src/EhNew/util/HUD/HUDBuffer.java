@@ -39,6 +39,7 @@ public class HUDBuffer {
     }
     
     public void bind(){
+        if(id == -1) throw new IllegalStateException("Hud Buffer not loaded!");
         GL15.glBindBuffer(GL_ARRAY_BUFFER, id);
     }
     
