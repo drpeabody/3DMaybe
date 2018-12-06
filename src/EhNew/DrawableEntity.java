@@ -32,20 +32,6 @@ public abstract class DrawableEntity extends Entity{
         this.s  = s;
         vertID = idxID = indexCount = indexOffset = drawMode = -1;
     }
-    
-    @Override
-    public void draw(int drawMode) {
-        if(vertID < 0 || idxID < 0){
-            throw new IllegalStateException("Attempting to draw Entity without creation");
-        }
-        if(indexCount < 0 || indexOffset < 0){
-            throw new IllegalStateException("Attempting to draw unindexed Entity");
-        }
-        int d = this.drawMode;
-        this.drawMode = drawMode;
-        draw();
-        this.drawMode = d;
-    }
 
     public void draw(){
         s.updateTransformationVectors(calculateTransformation());
@@ -80,8 +66,7 @@ public abstract class DrawableEntity extends Entity{
         int i[] = e.getIndexData();
         
         Vertex.calcTangents(v, i, 3);
-        drawMode = GL11.GL_TRIANGLES;
-        
+        if(drawMode == -1) drawMode = GL11.GL_TRIANGLES;
         load(Vertex.getDataFrom(v), i);
     }
     

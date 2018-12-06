@@ -52,7 +52,7 @@ public class Engine {
      */
     public void init(String title, int width, int height, int f) {
         this.fps = f;
-        System.out.println("ENGINE: Initiating...");
+//        System.out.println("ENGINE: Initiating...");
         try {
             renderer = new TickManager(() -> {
                 if (!glfwInit()) {
@@ -90,7 +90,7 @@ public class Engine {
             renderer.setTickDelay(1000/fps);
             renderer.runOnce();
             renderer.waitTillThreadPauses();
-            System.out.println("ENGINE: Engine successfully Initiated");
+//            System.out.println("ENGINE: Engine successfully Initiated");
         } catch(Exception e) {
             glfwTerminate();
         }
@@ -111,7 +111,7 @@ public class Engine {
         
         renderer.setCallback(this::gameLoop);
         
-        System.out.println("ENGINE: Renderer Started");
+//        System.out.println("ENGINE: Renderer Started");
         renderer.resume();
         updater.start();
     }
@@ -171,9 +171,9 @@ public class Engine {
      * Convenience function.
      */
     public void pauseRenderer(){
-        System.out.println("ENGINE: Pausing Renderer");
+//        System.out.println("ENGINE: Pausing Renderer");
         if(Thread.currentThread().getName().equals("Renderer")){
-            System.out.println("ENGINE: Renderer Thread Calls for pausing itself, Puase request ignored.");
+//            System.out.println("ENGINE: Renderer Thread Calls for pausing itself, Puase request ignored.");
             updater.pause();
         }else{
             renderer.pause();
@@ -184,7 +184,7 @@ public class Engine {
      * Convenience Function
      */
     public void resumeRenderer(){
-        System.out.println("ENGINE: Renderer Resumed");
+//        System.out.println("ENGINE: Renderer Resumed");
         renderer.setCallback(this::gameLoop);
         renderer.resume();
         updater.resume();
@@ -203,7 +203,7 @@ public class Engine {
         if(l == null) return;
         if(renderer.getState() == TickManager.STATE_RUNNING) pauseRenderer();
         if(Thread.currentThread().getName().equals("Renderer")){
-            System.out.println("ENGINE: Renderer Thread called upon itself to loadLevel, loading Level");
+//            System.out.println("ENGINE: Renderer Thread called upon itself to loadLevel, loading Level");
             l.load();
             return;
         }
@@ -220,7 +220,7 @@ public class Engine {
         if(current == null) return;
         
         if(Thread.currentThread().getName().equals("Renderer")){
-            System.out.println("ENGINE: Renderer Thread called upon itself to unloadLevel, unloading Level");
+//            System.out.println("ENGINE: Renderer Thread called upon itself to unloadLevel, unloading Level");
             current.destroy();
             return;
         }
@@ -262,7 +262,7 @@ public class Engine {
     }
     
     public void switchToLevel(Level l){
-        System.out.println("Switching to New Level...");
+//        System.out.println("Switching to New Level...");
         pauseRenderer();
         unLoadLevel();
         loadLevel(l);

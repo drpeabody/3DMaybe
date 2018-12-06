@@ -22,6 +22,18 @@ public class TexturedEntity extends DrawableEntity{
         this.diffuse = diffuse;
         this.normal = normal;
         this.emmisive = emmissive;
+        if(diffuse == null){
+            System.out.println("Received Null diffuse");
+            this.diffuse = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), "null.png");
+        }
+        if(normal == null){
+            System.out.println("Received Null Normal");
+            this.normal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), "nullN.png");
+        }
+        if(emmissive == null){
+            System.out.println("Received Null Emmissive");
+            this.emmisive = new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), "nullE.png");
+        }
     }
 
     @Override

@@ -39,7 +39,7 @@ public class TickManager {
     public void pause(){
         if(state != STATE_RUNNING && state != STATE_RUNNING_ONCE) return;
         state = STATE_PAUSED;
-        System.out.println(Thread.currentThread().getName()+": State of "+ticker.getName()+" Changed to Pause");
+//        System.out.println(Thread.currentThread().getName()+": State of "+ticker.getName()+" Changed to Pause");
     }
     public void stop(){
         if(state != STATE_RUNNING) return;
@@ -48,42 +48,42 @@ public class TickManager {
     public void resume(){
         if(state != STATE_PAUSED) return;
         if(Thread.currentThread().getName().equals(ticker.getName())){
-            System.out.println(ticker.getName() + " Called for resuming itself, resuming in a safe way.");
+//            System.out.println(ticker.getName() + " Called for resuming itself, resuming in a safe way.");
             state = STATE_RUNNING;
             return;
             //If Renderer Thread has come here from a callback Trip, it will return to the gameLoop in it's
             //TickManager.callback.run() function safely.
         }
         state = STATE_RUNNING;
-        System.out.println(Thread.currentThread().getName()+": State of "+ticker.getName()+" Resumed to 1");
+//        System.out.println(Thread.currentThread().getName()+": State of "+ticker.getName()+" Resumed to 1");
         synchronized(callback){
-            System.out.println(Thread.currentThread().getName() + ": Notifying Object " + callback);
+//            System.out.println(Thread.currentThread().getName() + ": Notifying Object " + callback);
             callback.notifyAll();
         }
     }
     
     public void runOnce(){
-        System.out.println(Thread.currentThread().getName()+": Run Once Called");
+//        System.out.println(Thread.currentThread().getName()+": Run Once Called");
         if(state == STATE_ENDED || state == STATE_RUNNING) return;
         if(state == STATE_NOT_STARTED){
-            System.out.println(Thread.currentThread().getName()+": Initiating Run Once Machanic...");
+//            System.out.println(Thread.currentThread().getName()+": Initiating Run Once Machanic...");
             state = STATE_RUNNING_ONCE;
             ticker.start();
         }
         state = STATE_RUNNING_ONCE;
         synchronized (callback) {
-            System.out.println(Thread.currentThread().getName() + ": Notifying Object For Run Once" + callback);
+//            System.out.println(Thread.currentThread().getName() + ": Notifying Object For Run Once" + callback);
             callback.notifyAll();
         }
     }
     public void waitTillThreadPauses(){
         if(state == STATE_PAUSED || state == STATE_ENDED) return;
-        System.out.println(Thread.currentThread().getName()+": Determined Thread "+ticker.getName()+" isn't Paused or Dead");
+//        System.out.println(Thread.currentThread().getName()+": Determined Thread "+ticker.getName()+" isn't Paused or Dead");
         try{
             synchronized(ticker){
-                System.out.println(Thread.currentThread().getName()+": Initiating Wait on "+ticker);
+//                System.out.println(Thread.currentThread().getName()+": Initiating Wait on "+ticker);
                 ticker.wait();
-                System.out.println(Thread.currentThread().getName()+": Wait inturrupted On Object "+ticker);
+//                System.out.println(Thread.currentThread().getName()+": Wait inturrupted On Object "+ticker);
             }
         } catch(InterruptedException ex){}
     }
@@ -120,24 +120,24 @@ public class TickManager {
                 if(state == STATE_PAUSED){
                     try {
                         synchronized(ticker){
-                            System.out.println(Thread.currentThread().getName()+": Notifying Object: " + ticker+" before Pausing");
+//                            System.out.println(Thread.currentThread().getName()+": Notifying Object: " + ticker+" before Pausing");
                             ticker.notifyAll();
                         }
                         synchronized(this){
-                            System.out.println(Thread.currentThread().getName()+": Initiating Pause... On " + this);
+//                            System.out.println(Thread.currentThread().getName()+": Initiating Pause... On " + this);
                             this.wait();
-                            System.out.println(Thread.currentThread().getName()+": Wait Inpurrupted On" + this + " with state " + state);
+//                            System.out.println(Thread.currentThread().getName()+": Wait Inpurrupted On" + this + " with state " + state);
                         }
                     } catch (InterruptedException e) {}
                 }
                 if(state == STATE_RUNNING_ONCE){
-                    System.out.println(Thread.currentThread().getName()+": Running Run Once Function");
+//                    System.out.println(Thread.currentThread().getName()+": Running Run Once Function");
                     r.run();
-                    System.out.println(Thread.currentThread().getName()+": Run Once Function Successfully completed");
+//                    System.out.println(Thread.currentThread().getName()+": Run Once Function Successfully completed");
                     state = STATE_PAUSED;
                 }
                 try{
-                    if(state != STATE_RUNNING) System.out.println(getTicker().getName()+": Thread Initiating Sleep with state " + state);
+//                    if(state != STATE_RUNNING) System.out.println(getTicker().getName()+": Thread Initiating Sleep with state " + state);
                     Thread.sleep(tickDelay);
                 } catch (InterruptedException e) {}
             }

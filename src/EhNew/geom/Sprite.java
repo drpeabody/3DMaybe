@@ -6,6 +6,7 @@ import EhNew.math.Vec3;
 import EhNew.shaders.CamShader;
 import EhNew.shaders.Shader;
 import EhNew.util.Camera;
+import org.lwjgl.opengl.GL11;
 
 /**
  * @since Apr 14, 2018
@@ -21,6 +22,7 @@ public abstract class Sprite extends DrawableEntity{
 
     @Override
     public void load() {
+        drawMode = GL11.GL_TRIANGLES;
         Vertex v[] = new Vertex[]{new Vertex(), new Vertex(), new Vertex(), new Vertex()};
         int arr[] = new int[]{0,1,2,2,3,0,0,3,2,2,1,0};
 
@@ -54,7 +56,7 @@ public abstract class Sprite extends DrawableEntity{
     //Texture binding needs to be done manually. Then just call this draw function.
     //Do not forget to unbind your textures.
     @Override
-    public void draw(int drawMode) {
+    public void draw() {
         Vec3 X = c.getPos().difference(translation).unitVector();//(0, 0, 1)
 //        rotation.z = 0f;
         rotation.y = (float)(2*Math.PI - Math.atan2(X.x, X.z));
@@ -62,6 +64,6 @@ public abstract class Sprite extends DrawableEntity{
 
         //Setting this rotation correctly results in the bill-boarding effect for Sprites.
 
-        super.draw(drawMode);
+        super.draw();
     }
 }

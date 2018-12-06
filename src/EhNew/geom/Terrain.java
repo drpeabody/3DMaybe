@@ -44,14 +44,19 @@ public class Terrain extends TexturedEntity {
                    BufferedImage texture, BufferedImage normal, BufferedImage emmisive,
                    Vec2 texScale, Shader s) {
         super(s,
-                new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), texture),
-                new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), normal),
-                new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), emmisive));
+                (texture == null)? null: new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), texture),
+                (normal == null)? null: new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), normal),
+                (emmisive == null)? null: new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), emmisive));
         this.heightMap = highetmap;
         this.cellSize = cellSize;
         TextureScale = texScale;
         this.startPos = startPos;
         endPos = null;
+        if(heightMap == null){
+            try {
+                heightMap = ImageIO.read(Engine.class.getResourceAsStream("TestHeightMap.png"));
+            } catch (IOException ignored) {}
+        }
         del = heightMap.getRGB(0,0);
     }
 

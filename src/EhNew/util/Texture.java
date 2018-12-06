@@ -99,7 +99,7 @@ public class Texture {
         glBindTexture(target, id);
     }
     public void unBind(){
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL13.glActiveTexture(unit);
         glBindTexture(target, -1);
     }
     

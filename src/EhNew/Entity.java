@@ -10,7 +10,7 @@ public abstract class Entity {
     protected  Vec3 translation, scale, rotation;
     
     public abstract void load();
-    public abstract void draw(int drawMode);
+    public abstract void draw();
     public abstract void destroy();
     
     Entity(){
