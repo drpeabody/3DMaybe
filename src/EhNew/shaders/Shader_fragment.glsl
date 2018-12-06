@@ -27,6 +27,8 @@ uniform struct PointLight
 } lights[8];
 
 uniform int numLights;
+uniform vec4 diffuseColor = vec4(0,0,0,0);
+uniform vec4 emmisiveColor = vec4(0,0,0,0);
 uniform sampler2D diffuseMap;
 uniform sampler2D normalMap;
 uniform sampler2D emmisiveMap;
@@ -84,35 +86,9 @@ void main(){
     
     for(int i = 0; i < numLights; i++) lighting += calcPointLight(i, normal);
 
-    fragColor = texture2D(diffuseMap, TextureCood0.st) * lighting + texture2D(emmisiveMap, TextureCood0.st);
-
-    /*
-    float dist = length(WorldEyePos0 - WorldFragPos0);
-    
-    //gl_FragColor = vec4(50/(dist*dist), 50/(dist*dist), 50/(dist*dist), 1) + lighting;
-
-    float time = lights[0].pos.z - 2, speed = 5.0;
-
-    float f = mod(dist/10 + 5 * time, 10);
-    
-    gl_FragColor = pow(2730, -(f * f)) * gl_FragColor + gl_FragColor;
-    */
-/*
-    // --MADELBROT FRACTAL CODE--
-    float x0 = gl_FragCoord.x/(1280/3.5) - 2.5; 
-    float y0 = gl_FragCoord.y/360 - 1;
-    float x = 0.0;
-    float y = 0.0;
-    float iteration = 0;
-    int max_iteration = 1000;
-    while (x*x + y*y < 2*2  && iteration < max_iteration) {
-        float xtemp = x*x - y*y + x0;
-        y = 2*x*y + y0;
-        x = xtemp;
-        iteration++;
-    }
-    gl_FragColor = 20*vec4(mod(iteration, 250)/250 , mod(iteration, 500)/500 , mod(iteration, 750)/750 , 1);
-    */
+    fragColor = (diffuseColor + texture2D(diffuseMap, TextureCood0.st)) * lighting
+            + texture2D(emmisiveMap, TextureCood0.st)
+            + emmisiveColor;
 }
 
 

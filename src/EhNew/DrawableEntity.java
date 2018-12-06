@@ -97,4 +97,12 @@ public abstract class DrawableEntity extends Entity{
         idxID = -1;
         indexCount = indexOffset = -1;
     }
+
+    public int getVertID() {
+        return vertID;
+    }
+
+    public int getIdxID() {
+        return idxID;
+    }
 }

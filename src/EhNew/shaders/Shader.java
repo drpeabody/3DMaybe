@@ -1,11 +1,11 @@
 package EhNew.shaders;
 
-import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL13;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+
 import static org.lwjgl.opengl.GL20.*;
 
 /**
@@ -14,11 +14,10 @@ import static org.lwjgl.opengl.GL20.*;
  */
 public abstract class Shader {
     int programID;
-    protected ArrayList<Integer> shaders;
+    private int vertexShader, fragmentShader;
     
     public Shader(){
-        programID = -1;
-        shaders = new ArrayList<>();
+        programID = vertexShader = fragmentShader = -1;
     }
     
     public void init() {
@@ -28,29 +27,17 @@ public abstract class Shader {
         if(programID == -1) throw new IllegalStateException("Shader not Initted.");
         glUseProgram(programID);
     }
-    void addShader(int shader) {
-        if(programID == -1) throw new IllegalStateException("Shader not Initted.");
-        if (!glIsShader(shader)) throw new IllegalArgumentException("Invalid Shader.");
-        glAttachShader(programID, shader);
-        shaders.add(shader);
-    }
+
     public void destroyShaders(){
-        shaders.clear();
         glUseProgram(0);
         glDeleteProgram(programID);
-        programID = -1;
+        programID = vertexShader = fragmentShader = -1;
     }
     
     int getUniformLocation(String s){
         return glGetUniformLocation(programID, s);
     }
-    public void finalizeShader() {
-        if(programID == -1) throw new IllegalStateException("Processor not Initted.");
-        shaders.stream().peek((i) -> glDetachShader(programID, i))
-                .forEach(GL20::glDeleteShader);
-    }
-    
-    static int compileShader(InputStream in, int type) {
+    private static int compileShader(InputStream in, int type) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             StringBuilder program = new StringBuilder();
@@ -71,14 +58,26 @@ public abstract class Shader {
         } catch (Exception ignored) {}
         return -1;
     }
-    
+
+    void loadShader(String vertex, String fragment, Class c){
+        fragmentShader = compileShader(c.getResourceAsStream(fragment), GL_FRAGMENT_SHADER);
+        vertexShader = compileShader(c.getResourceAsStream(vertex), GL_VERTEX_SHADER);
+        glAttachShader(programID, fragmentShader);
+        glAttachShader(programID, vertexShader);
+        glLinkProgram(programID);
+        glUseProgram(programID);
+        glDetachShader(programID, fragmentShader);
+        glDetachShader(programID, vertexShader);
+        glDeleteShader(fragmentShader);
+        glDeleteShader(vertexShader);
+    }
+
     public abstract void loadShader();
-    public abstract void updateTransformationVectors(float[] mat);
-    public abstract void updateProjection(float[] mat);
+    public void updateTransformationVectors(float[] mat){}
+    public void updateProjection(float[] mat){}
     //Since shader is handled by Engine, it assumes some defualt functionality.
     //If your shader doesn't use this functionality, leave the function empty.
-    
-    public abstract int getDiffuseMapTextureUnit();
-    public abstract int getNormalMapTextureUnit();
-    public abstract int getEmmisiveMapTextureUnit();
+    public int getDiffuseMapTextureUnit(){ return GL13.GL_TEXTURE0;}
+    public int getNormalMapTextureUnit(){ return GL13.GL_TEXTURE0;}
+    public int getEmmisiveMapTextureUnit(){ return GL13.GL_TEXTURE0;}
 }

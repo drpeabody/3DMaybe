@@ -2,6 +2,7 @@ package EhNew.Test;
 
 import EhNew.Engine;
 import EhNew.Level;
+import EhNew.geom.Axes;
 import EhNew.shaders.FactoryShader;
 import EhNew.data.Arrow;
 import EhNew.geom.Cube;
@@ -40,7 +41,8 @@ public class Main {
         HUDBuffer hud;
         FactoryShader f;
         ProgressBar health, armor;
-        
+
+        Axes ax;
         Terrain ter;
         Cube sc2;
         Sphere s1, s2;
@@ -70,6 +72,7 @@ public class Main {
             sc2 = new Cube(f);
             l = new PointLight();
             m = new PointLight();
+            ax = new Axes(f);
         }
 
         @Override
@@ -98,11 +101,12 @@ public class Main {
             s2.load();
             sc2.load();
             a.load();
+            ax.load();
             ter.load();
             
             a.translateBy(new Vec3(0f, 0f, 2f));
             s2.translateBy(new Vec3(0f, 0f, 5f));
-            s1.translateBy(new Vec3(0f, 0f, 1f));
+            s1.translateBy(new Vec3(0f, 5f, 1f));
             
             sc2.setTranslation(new Vec3(4f, 0, 1.5f));
             sc2.setScale(new Vec3(2f, 2f, 2f));
@@ -142,11 +146,12 @@ public class Main {
             //engine must be called upon to draw objects and it handles shaders
             //to correctly implement transformation for each entity without the user having to worry about it
             //Passing an array of a set of large objects will speed up this thing
-            
+
             engine.draw(sc2);
             engine.draw(s1);
             engine.draw(s2);
             engine.draw(a);
+            engine.draw(ax);
             engine.draw(ter);
             
             f.updatePointLightProperty(l, f.UNIFORM_LIGHT_POSITION);
@@ -177,6 +182,7 @@ public class Main {
             ter.destroy();
             s2.destroy();
             sc2.destroy();
+            ax.destroy();
             f.destroyShaders();
             hs.destroyShaders();
             hud.release();

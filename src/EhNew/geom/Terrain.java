@@ -44,6 +44,11 @@ public class Terrain extends DrawableEntity{
     public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, BufferedImage texture, BufferedImage normal, Vec2 texScale, Shader s) {
         super(s);
         this.heightMap = highetmap;
+        if(heightMap == null){
+            try {
+                heightMap = ImageIO.read(Engine.class.getResourceAsStream("TestHeightMap.png"));
+            } catch (IOException ignored) {}
+        }
         this.cellSize = cellSize;
         TextureScale = texScale;
         this.startPos = startPos;
@@ -53,7 +58,9 @@ public class Terrain extends DrawableEntity{
         endPos = null;
         del = heightMap.getRGB(0,0);
     }
-    public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos, BufferedImage texture, BufferedImage normal, BufferedImage emmisive, Vec2 texScale, Shader s) {
+    public Terrain(BufferedImage highetmap, Vec3 cellSize, Vec3 startPos,
+                   BufferedImage texture, BufferedImage normal, BufferedImage emmisive,
+                   Vec2 texScale, Shader s) {
         super(s);
         this.heightMap = highetmap;
         this.cellSize = cellSize;
@@ -112,7 +119,9 @@ public class Terrain extends DrawableEntity{
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Vertex t = v[i*width + j] = new Vertex();
-                t.pos = new Vec3(startPos.x + cellSize.x * i, startPos.y + cellSize.y * (heightMap.getRGB(i, j) - del), startPos.z + cellSize.z * j);
+                t.pos = new Vec3(startPos.x + cellSize.x * i,
+                        startPos.y + cellSize.y * (heightMap.getRGB(i, j) - del),
+                        startPos.z + cellSize.z * j);
                 t.TextCoods.x = TextureScale.x * i;
                 t.TextCoods.y = TextureScale.y * j;
             }
@@ -138,17 +147,16 @@ public class Terrain extends DrawableEntity{
                 }
             }
         }
-        
-        udx = 0;
+
         int b = 0;
         
         for (int i = 0; i < width-1; i++) {
             for (int j = 0; j < height-1; j++) {
+                udx = i * width + j;
                 arr[b++] = udx;
                 arr[b++] = udx + 1;
                 arr[b++] = udx + 1 + width;
                 arr[b++] = udx + width;
-                udx++;
             }
         }
         

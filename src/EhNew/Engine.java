@@ -289,7 +289,7 @@ public class Engine {
         GLFW.glfwGetCursorPos(window, mouseX, mouseY);
         Vec2 size = c.getProjection().getScreenSizePixels();
         return new Vec2(
-            (float)mouseX[0] - size.x, (size.y/2 - (float)mouseY[0])*2/size.y);
+            ((float)mouseX[0])*2/size.x - 1f, 1f + (1f - (float)mouseY[0])*2/size.y);
     }
         
     /**
