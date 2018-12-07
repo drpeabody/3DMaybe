@@ -2,15 +2,11 @@ package EhNew.Test;
 
 import EhNew.Engine;
 import EhNew.Level;
-import EhNew.geom.Axes;
+import EhNew.geom.*;
 import EhNew.shaders.FactoryShader;
-import EhNew.geom.Arrow;
-import EhNew.geom.Cube;
 import EhNew.data.DirectionalLight;
 import EhNew.util.HUD.*;
 import EhNew.data.PointLight;
-import EhNew.geom.Sphere;
-import EhNew.geom.Terrain;
 import EhNew.shaders.HUDShader;
 import EhNew.math.Vec2;
 import EhNew.math.Vec3;
@@ -41,6 +37,7 @@ public class Main {
         HUDBuffer hud;
         FactoryShader f;
         ProgressBar health, armor;
+        SkyBox sk;
 
         Axes ax;
         Terrain ter;
@@ -65,7 +62,8 @@ public class Main {
             hud = new HUDBuffer(4, GL15.GL_DYNAMIC_DRAW);
             armor = new ProgressBar(new Vec2(-0.6f, -0.75f), new Vec2(0, -0.65f), new Vec4(.1f,0.5f,1f,1f), 0.9f, 1f, null);
             health = new ProgressBar(new Vec2(-.6f, -.95f), new Vec2(0, -.85f), new Vec4(.3f, .6f, 0f, 1f), 0.9f, 1f, null);
-            ter = new Terrain(null, new Vec3(3f, 0.00001f, 3f), new Vec3(-60f, -2f, -60f), new Vec2(0.05f, 0.05f), f);
+            ter = new Terrain(null, new Vec3(3f, 0.00005f, 3f), new Vec3(-60f, -20f, -60f), new Vec2(0.05f, 0.05f), f);
+            sk = new SkyBox(f, 1000f, null);
             s1 = new Sphere(f);
             s2 = new Sphere(f);
             a = new Arrow(f);
@@ -101,10 +99,12 @@ public class Main {
             s2.load();
             sc2.load();
             a.load();
+            sk.load();
             ax.load();
             ter.load();
-            
-            a.translateBy(new Vec3(0f, 0f, 2f));
+
+            ax.setTranslation(new Vec3());
+            a.setTranslation(new Vec3(0f, -1f, 0f));
             s2.translateBy(new Vec3(0f, 0f, 5f));
             s1.translateBy(new Vec3(0f, 5f, 1f));
             
@@ -147,6 +147,7 @@ public class Main {
             //to correctly implement transformation for each entity without the user having to worry about it
             //Passing an array of a set of large objects will speed up this thing
 
+            sk.draw();
             sc2.draw();
             s1.draw();
             s2.draw();
@@ -183,6 +184,7 @@ public class Main {
             s2.destroy();
             sc2.destroy();
             ax.destroy();
+            sk.destroy();
             f.destroyShaders();
             hs.destroyShaders();
             hud.release();

@@ -41,6 +41,8 @@ public class Axes extends DrawableEntity {
 
     @Override
     public void draw() {
+        s.updateTransformationVectors(calculateTransformation());
+
         glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_POSITION);
         glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_TEXTURE_COOD);
         glEnableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);
