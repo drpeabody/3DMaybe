@@ -10,6 +10,8 @@ import EhNew.shaders.Shader;
 import EhNew.util.TextFactory;
 import org.lwjgl.glfw.GLFW;
 import static org.lwjgl.glfw.GLFW.*;
+
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -64,6 +66,15 @@ public class Engine {
                 if (window == 0) {
                     throw new IllegalStateException("Failed to init window");
                 }
+
+                int pWidth[] = new int[1], pHeight[] = new int[1];
+                glfwGetWindowSize(window, pWidth, pHeight);
+                GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+                glfwSetWindowPos(window,
+                        (vidmode.width() - pWidth[0]) / 2,
+                        (vidmode.height() - pHeight[0]) / 2
+                );
+
                 glfwMakeContextCurrent(window);
                 glfwSwapInterval(0);
                 glfwShowWindow(window);
