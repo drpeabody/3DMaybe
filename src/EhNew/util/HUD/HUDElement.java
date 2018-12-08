@@ -54,7 +54,7 @@ public abstract class HUDElement {
         buffer.draw(bufferOffset);
     }
     
-    public void updateBuffer(){
+    private void updateBuffer(){
         buffer.bind();
         int numfloats = HUDVertex.SIZE / 4;
         float f[] = new float[numfloats * 4];

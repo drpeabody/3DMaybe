@@ -63,6 +63,7 @@ public class ProgressBar extends PictureBox{
         BR.textCood.x = progressX;
         TL.textCood.y = 1 - progressY;
         TR.textCood.y = 1 - progressY;
-        updateBuffer();
+//        updateBuffer();
+        isBufferDirty = true;
    }
 }
