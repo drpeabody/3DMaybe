@@ -1,4 +1,4 @@
-#version 330
+#version 130
 
 layout (location = 0) in vec4 Position;
 layout (location = 1) in vec2 textCood;
