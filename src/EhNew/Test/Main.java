@@ -27,7 +27,7 @@ public class Main {
 
     public static void main(String[] args) {
         Engine e = new Engine();
-        e.init("Window Title", 1280, 720, 30);
+        e.init("Window Title", 1280, 720, 60);
         LevelSample l = new LevelSample(e);
         e.loadLevel(l);
         e.start(l);
