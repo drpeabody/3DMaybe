@@ -1,4 +1,4 @@
-#version 330
+#version 130
 
 in vec2 TextureCood0;
 in vec3 Normal0;
