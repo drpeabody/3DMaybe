@@ -35,9 +35,15 @@ public class PerspectiveProjection implements Projection{
     public float getHeight(){
         return width/aspectRatio;
     }
-
+    public float getAspectRatio(){
+        return aspectRatio;
+    }
     public float getWidth() {
         return width;
+    }
+    @Override
+    public float getFieldOfView() {
+        return fieldOfView;
     }
 
     @Override

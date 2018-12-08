@@ -37,4 +37,44 @@ public class Matrix4f {
                 m[12] + ",\t" + m[13] + ",\t" + m[14] + ",\t" + m[15] + ")"; 
     }
 
+    public Vec4 applyToVector(Vec3 v){
+        //Last Component is taken to be 0f
+        return new Vec4(
+            m[ 0] * v.x + m[ 1] * v.y + m[ 2] * v.z + m[ 3],
+            m[ 4] * v.x + m[ 5] * v.y + m[ 6] * v.z + m[ 7],
+            m[ 8] * v.x + m[ 9] * v.y + m[10] * v.z + m[11],
+            m[12] * v.x + m[13] * v.y + m[14] * v.z + m[15]
+        );
+    }
+
+    public Vec4 applyToVector(Vec4 v){
+        return new Vec4(
+            m[ 0] * v.r + m[ 1] * v.g + m[ 2] * v.b + m[ 3]* v.a,
+            m[ 4] * v.r + m[ 5] * v.g + m[ 6] * v.b + m[ 7]* v.a,
+            m[ 8] * v.r + m[ 9] * v.g + m[10] * v.b + m[11]* v.a,
+            m[12] * v.r + m[13] * v.g + m[14] * v.b + m[15]* v.a
+        );
+    }
+
+    public void transpose(){
+        float k = m[1];
+        m[1] = m[4];
+        m[4] = k;
+        k = m[2];
+        m[2] = m[8];
+        m[8] = k;
+        k = m[3];
+        m[3] = m[12];
+        m[12] = k;
+        k = m[6];
+        m[6] = m[9];
+        m[9] = k;
+        k = m[7];
+        m[7] = m[13];
+        m[13] = k;
+        k = m[11];
+        m[11] = m[14];
+        m[14] = k;
+    }
+
 }

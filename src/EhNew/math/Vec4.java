@@ -36,4 +36,9 @@ public class Vec4 {
     public Vec4 hamiltonConjugate(){
         return new Vec4(r, -g, -b, -a);
     }
+
+    @Override
+    public String toString() {
+        return "Vec4(" + r + ", " + g + ", " + b + ", " + a + ")";
+    }
 }
