@@ -61,6 +61,10 @@ public class Engine {
                     throw new IllegalStateException("Failed to init glfw");
                 }
                 glfwDefaultWindowHints();
+                glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+                glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+                glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_FALSE);
                 
                 window = glfwCreateWindow(width, height, title, 0, 0);
                 if (window == 0) {
@@ -79,16 +83,13 @@ public class Engine {
                 glfwSwapInterval(0);
                 glfwShowWindow(window);
                 GL.createCapabilities();
+                System.out.println(glGetString(GL_VERSION));
                 glFrontFace(GL_CW);
                 glCullFace(GL_BACK);
                 glEnable(GL_CULL_FACE);
                 glEnable(GL_BLEND);
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 glEnable(GL_DEPTH_TEST);
-                glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-                glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-                glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
                 currshader.init();
                 currshader.loadShader();
                 c = new Camera();
