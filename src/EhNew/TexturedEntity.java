@@ -48,6 +48,18 @@ public class TexturedEntity extends DrawableEntity{
     }
 
     @Override
+    public void loadDataFrom(DrawableEntity d) {
+        if(! (d instanceof TexturedEntity))
+            throw new IllegalArgumentException("Cannot Load TexturedEntity from Class");
+        TexturedEntity t = (TexturedEntity)d;
+        load(d.getShader(), d.getVertID(), d.getIdxID(), d.getIndexCount(),
+                d.getIndexOffset(), d.getDrawMode());
+        diffuse = t.diffuse;
+        normal = t.normal;
+        emmisive = t.emmisive;
+    }
+
+    @Override
     public void load() {
         diffuse.loadFromImage();
         diffuse.bufferData();

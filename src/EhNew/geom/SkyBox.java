@@ -4,7 +4,6 @@ import EhNew.DrawableEntity;
 import EhNew.Engine;
 import EhNew.shaders.Shader;
 import EhNew.util.Texture;
-import org.lwjgl.opengl.GL11;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -153,6 +152,22 @@ public class SkyBox extends DrawableEntity {
         };
 
         load(Vertex.getDataFrom(v), arr);
+    }
+
+    @Override
+    public void loadDataFrom(DrawableEntity d) {
+        if(! (d instanceof SkyBox))
+            throw new IllegalArgumentException("Cannot Load SkyBox from Class");
+        SkyBox t = (SkyBox)d;
+        load(d.getShader(), d.getVertID(), d.getIdxID(), d.getIndexCount(),
+                d.getIndexOffset(), d.getDrawMode());
+        xPos = t.xPos;
+        xNeg = t.xNeg;
+        yPos = t.yPos;
+        yNeg = t.yNeg;
+        zPos = t.zPos;
+        zNeg = t.zNeg;
+        scale = t.scale;
     }
 
     @Override

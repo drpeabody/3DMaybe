@@ -40,6 +40,14 @@ public class Axes extends DrawableEntity {
     }
 
     @Override
+    public void loadDataFrom(DrawableEntity d) {
+        if(! (d instanceof Axes) )
+            throw new IllegalArgumentException("Cannot Load Axes) from Class");
+        load(d.getShader(), d.getVertID(), d.getIdxID(), d.getIndexCount(),
+                d.getIndexOffset(), d.getDrawMode());
+    }
+
+    @Override
     public void draw() {
         s.updateTransformationVectors(calculateTransformation());
 

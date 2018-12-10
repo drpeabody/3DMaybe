@@ -56,7 +56,19 @@ public abstract class DrawableEntity extends Entity{
         glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_NORMAL);
         glDisableVertexAttribArray(Vertex.POINTER_ATTRIB_TANGENT);
     }
-    
+
+    public abstract void loadDataFrom(DrawableEntity d);
+    protected void load(Shader s, int vertID, int idxID, int indexCount, int indexOffset, int drawMode){
+        if (this.idxID != -1 || this.vertID != -1) {
+            throw new IllegalStateException("Attempting to create pre-created Entity");
+        }
+        this.s = s;
+        this.vertID = vertID;
+        this.idxID = idxID;
+        this.indexCount = indexCount;
+        this.indexOffset = indexOffset;
+        this.drawMode = drawMode;
+    }
     public void load(InputStream s) {
         if (idxID != -1 || vertID != -1) {
             throw new IllegalStateException("Attempting to create pre-created Entity");
@@ -69,7 +81,6 @@ public abstract class DrawableEntity extends Entity{
         if(drawMode == -1) drawMode = GL11.GL_TRIANGLES;
         load(Vertex.getDataFrom(v), i);
     }
-    
     public void load(float vartices[], int indices[]){
         indexCount = indices.length;
         indexOffset = 0;
@@ -95,11 +106,20 @@ public abstract class DrawableEntity extends Entity{
         indexCount = indexOffset = -1;
     }
 
+    public Shader getShader(){ return s; }
     public int getVertID() {
         return vertID;
     }
-
+    public int getIndexCount() {
+        return indexCount;
+    }
+    public int getIndexOffset() {
+        return indexOffset;
+    }
     public int getIdxID() {
         return idxID;
     }
+    public int getDrawMode() { return drawMode; }
+
+    public void update(){}
 }
