@@ -50,4 +50,14 @@ public class DrawList {
     public void destroy(){
         mesh.destroy();
     }
+
+    public void forEach(DrawableConsumer c) {
+        for(DrawableEntity d: meshes){
+            c.consume(d);
+        }
+    }
+
+    public interface DrawableConsumer{
+        void consume(DrawableEntity d);
+    }
 }
