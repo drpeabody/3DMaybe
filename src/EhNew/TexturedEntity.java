@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
  * @since 6 Dec, 2018
  * @author Abhishek
  */
-public class TexturedEntity extends DrawableEntity{
+public abstract class TexturedEntity extends DrawableEntity{
     private Texture diffuse, normal, emmisive;
 
     public TexturedEntity(Shader s){
@@ -22,18 +22,12 @@ public class TexturedEntity extends DrawableEntity{
         this.diffuse = diffuse;
         this.normal = normal;
         this.emmisive = emmissive;
-        if(diffuse == null){
-            System.out.println("Received Null diffuse");
+        if(diffuse == null)
             this.diffuse = new Texture(GL_TEXTURE_2D, s.getDiffuseMapTextureUnit(), "null.png");
-        }
-        if(normal == null){
-            System.out.println("Received Null Normal");
+        if(normal == null)
             this.normal = new Texture(GL_TEXTURE_2D, s.getNormalMapTextureUnit(), "nullN.png");
-        }
-        if(emmissive == null){
-            System.out.println("Received Null Emmissive");
+        if(emmissive == null)
             this.emmisive = new Texture(GL_TEXTURE_2D, s.getEmmisiveMapTextureUnit(), "nullE.png");
-        }
     }
 
     @Override

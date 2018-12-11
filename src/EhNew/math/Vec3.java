@@ -140,4 +140,24 @@ public class Vec3 {
         Vec3 o = (Vec3)v;
         return o.x == x && o.y == y && o.z == z;
     }
+
+    public Vec3 T(OneVec3Consumer c){
+        return new Vec3(c.consume(x), c.consume(y), c.consume(z));
+    }
+    public static Vec3 T(Vec3 v, OneVec3Consumer c){
+        return new Vec3(c.consume(v.x), c.consume(v.y), c.consume(v.z));
+    }
+    public Vec3 T(Vec3 v, TwoVec3Consumer c){
+        return new Vec3(c.consume(x, v.x), c.consume(y, v.y), c.consume(z, v.z));
+    }
+    public static Vec3 T(Vec3 v, Vec3 w, TwoVec3Consumer c){
+        return new Vec3(c.consume(v.x, w.x), c.consume(v.y, w.y), c.consume(v.z, w.z));
+    }
+
+    public static interface OneVec3Consumer{
+        public float consume(float f);
+    }
+    public static interface TwoVec3Consumer{
+        public float consume(float f, float g);
+    }
 }
