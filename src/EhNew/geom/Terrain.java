@@ -123,11 +123,11 @@ public class Terrain extends TexturedEntity {
                     v[udx].normal = v[udx - width].pos.difference(v[udx].pos).cross(v[udx - 1].pos.difference(v[udx].pos));
                 }else {
                     v[udx].tangent = v[(udx) + width].pos.difference(v[udx - width].pos);
-                    v[udx].normal.x = v[udx + width].pos.y - v[udx - width].pos.y;
-                    v[udx].normal.z = -v[udx + 1].pos.y + v[udx - 1].pos.y;
-                    v[udx].normal.y = -2f;
-                    v[udx].normal.normalize();
+                    v[udx].normal = v[udx].tangent.cross(v[udx + 1].pos.difference(v[udx - 1].pos));
                 }
+
+                v[udx].normal.normalize();
+                v[udx].tangent.normalize();
             }
         }
 
