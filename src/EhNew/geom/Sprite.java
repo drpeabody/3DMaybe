@@ -26,10 +26,10 @@ public abstract class Sprite extends DrawableEntity{
         Vertex v[] = new Vertex[]{new Vertex(), new Vertex(), new Vertex(), new Vertex()};
         int arr[] = new int[]{0,1,2,2,3,0};
 
-        v[0].TextCoods = new Vec2(0f, 0f);
-        v[1].TextCoods = new Vec2(1f, 0f);
-        v[2].TextCoods = new Vec2(1f, 1f);
-        v[3].TextCoods = new Vec2(0f, 1f);
+        v[0].TextCoods = new Vec2(0f, 1f);
+        v[1].TextCoods = new Vec2(1f, 1f);
+        v[2].TextCoods = new Vec2(1f, 0f);
+        v[3].TextCoods = new Vec2(0f, 0f);
 
         v[0].normal = new Vec3(0f, 0f, 1f);
         v[1].normal = new Vec3(0f, 0f, 1f);
@@ -59,8 +59,8 @@ public abstract class Sprite extends DrawableEntity{
     public void draw() {
         Vec3 X = c.getPos().difference(translation);//(0, 0, 1)
         rotation.y = (float)(-Math.atan2(X.x, X.z));
-        rotation.z = 0f;
-        rotation.x = (float)(-Math.atan2(X.y, Math.sqrt(X.x*X.x + X.z*X.z)));
+        rotation.z = (float)(-Math.atan2(X.y, X.z));
+        rotation.x = 0f;
         //Setting this rotation correctly results in the bill-boarding effect for Sprites.
 
         super.draw();
@@ -70,8 +70,8 @@ public abstract class Sprite extends DrawableEntity{
         Vec3 X = c.getPos().difference(translation);//(0, 0, 1)
 
         rotation.y = (float)(-Math.atan2(X.x, X.z));
-        rotation.z = 0f;
-        rotation.x = (float)(-Math.atan2(X.y, Math.sqrt(X.x*X.x + X.z*X.z)));
+        rotation.z = (float)(-Math.atan2(X.y, X.z));
+        rotation.x = 0f;
 
         Vec3 t = ax.getTranslation();
         Vec3 r = ax.getRotation();

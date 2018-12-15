@@ -49,6 +49,12 @@ public class HitBoxList {
         }
     }
 
+    public void forEach(HitBoxConsumer h){
+        for(HitBox hb: hitlist){
+            h.consume(hb);
+        }
+    }
+
     public static interface HitBoxConsumer{
         public void consume(HitBox h);
     }

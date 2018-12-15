@@ -120,7 +120,7 @@ public class Camera {
         camMoved = true;
     }
     public void rotateCameraBy(Vec2 mouseDisp) {
-        float Hangle = -mouseDisp.x*mouseSpeed;
+        float Hangle = mouseDisp.x*mouseSpeed;
         float Vangle = mouseDisp.y*mouseSpeed;
         
         final Vec3 Vaxis = new Vec3(0f,1f,0f);
@@ -144,7 +144,7 @@ public class Camera {
     
     public float[] calculatecameraMatrix(){
         return (new float[] {
-            left.x,left.y, left.z, -loc.dot(left),
+            -left.x,-left.y, -left.z, loc.dot(left),
             head.x, head.y, head.z, -loc.dot(head),
             target.x, target.y, target.z, -loc.dot(target),
             0.0f, 0.0f, 0.0f, 1.0f});
@@ -179,8 +179,8 @@ public class Camera {
                 }
                 if(KeyForwardPressed) dirMove.add(target.unitVector());
                 else if(KeyBackwardPressed) dirMove.subtract(target.unitVector());
-                if(KeyLeftPressed) dirMove.subtract(left.unitVector());
-                else if(KeyRightPressed) dirMove.add(left.unitVector());
+                if(KeyLeftPressed) dirMove.add(left.unitVector());
+                else if(KeyRightPressed) dirMove.subtract(left.unitVector());
                 if(KeyUpPressed) dirMove.add(new Vec3(0f,1f,0f));
                 else if(KeyDownPressed) dirMove.subtract(new Vec3(0f, 1f, 0f));
             }

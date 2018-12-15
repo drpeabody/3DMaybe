@@ -45,10 +45,10 @@ public class Texture {
         id = -1;
         unit = textureUnit;
         target = TextureTarget;
-        numComp = 0;
         if(b == null){
             throw new NullPointerException("Buffer cannot be Null");
         }
+        numComp = b.getColorModel().getNumComponents();
         image = b;
         height = b.getHeight();
         width = b.getWidth();

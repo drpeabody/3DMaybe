@@ -84,7 +84,7 @@ public class Engine {
                 glfwShowWindow(window);
                 GL.createCapabilities();
                 System.out.println(glGetString(GL_VERSION));
-                glFrontFace(GL_CW);
+                glFrontFace(GL_CCW);
                 glCullFace(GL_BACK);
                 glEnable(GL_CULL_FACE);
                 glEnable(GL_BLEND);
