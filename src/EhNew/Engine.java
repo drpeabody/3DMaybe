@@ -84,6 +84,8 @@ public class Engine {
                 glfwShowWindow(window);
                 GL.createCapabilities();
                 System.out.println(glGetString(GL_VERSION));
+                System.out.println("Fix HUD Target Projection.");
+                System.out.println("Fix Sprite bill boarding.");
                 glFrontFace(GL_CCW);
                 glCullFace(GL_BACK);
                 glEnable(GL_CULL_FACE);

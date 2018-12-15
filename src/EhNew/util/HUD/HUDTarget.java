@@ -27,7 +27,7 @@ public class HUDTarget extends PictureBox {
         float ar = p.getAspectRatio();
         float t = (float)(Math.tan(p.getFieldOfView()/2));
         Vec3 camPos = pos.difference(c.getPos()).unitVector();
-        Vec2 scrPos = new Vec2(c.getLeft().dot(camPos)/(ar*t), c.getHead().dot(camPos)/t);
+        Vec2 scrPos = new Vec2(c.getLeft().dot(camPos)/(-ar*t), c.getHead().dot(camPos)/t);
 
 //        Matrix4f proj = new Matrix4f(p.getProjectionMatrix());
 //        Matrix4f cam = new Matrix4f(c.calculatecameraMatrix());

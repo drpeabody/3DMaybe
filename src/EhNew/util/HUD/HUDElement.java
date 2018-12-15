@@ -37,9 +37,9 @@ public abstract class HUDElement {
         bufferOffset = b.getCurrentOffset();
         buffer.bind();
         buffer.addData(TR.getArray());
-        buffer.addData(BR.getArray());
-        buffer.addData(BL.getArray());
         buffer.addData(TL.getArray());
+        buffer.addData(BL.getArray());
+        buffer.addData(BR.getArray());
     }
     
     public void draw() {
@@ -59,9 +59,9 @@ public abstract class HUDElement {
         int numfloats = HUDVertex.SIZE / 4;
         float f[] = new float[numfloats * 4];
         System.arraycopy(TR.getArray(), 0, f, 0, numfloats);
-        System.arraycopy(BR.getArray(), 0, f,        numfloats, numfloats);
+        System.arraycopy(TL.getArray(), 0, f,        numfloats, numfloats);
         System.arraycopy(BL.getArray(), 0, f, 2 * numfloats, numfloats);
-        System.arraycopy(TL.getArray(), 0, f, 3 * numfloats, numfloats);
+        System.arraycopy(BR.getArray(), 0, f, 3 * numfloats, numfloats);
         GL15.glBufferSubData(GL_ARRAY_BUFFER, bufferOffset, f);
     }
     

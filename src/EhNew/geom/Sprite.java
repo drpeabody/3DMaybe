@@ -57,21 +57,30 @@ public abstract class Sprite extends DrawableEntity{
     //Do not forget to unbind your textures.
     @Override
     public void draw() {
-        Vec3 X = c.getPos().difference(translation);//(0, 0, 1)
-        rotation.y = (float)(-Math.atan2(X.x, X.z));
-        rotation.z = (float)(-Math.atan2(X.y, X.z));
-        rotation.x = 0f;
+        Vec3 X = c.getPos().difference(translation).unitVector();//(0, 0, 1)
+
+        double Rx = Math.atan2(-X.y, X.z);
+        rotation.y = -(float)Math.atan2(X.x, X.z);
+        rotation.x = -(float)Math.atan2(X.y, X.z);
+
+//        rotation.z = (float)Math.atan2(X.y, X.x);
+
+//        rotation.z = - (float)(Math.sin(yAngle) * xAngle);
         //Setting this rotation correctly results in the bill-boarding effect for Sprites.
 
         super.draw();
     }
 
     public void draw(Axes ax){
-        Vec3 X = c.getPos().difference(translation);//(0, 0, 1)
+        Vec3 X = c.getPos().difference(translation).unitVector();//(0, 0, 1)
 
-        rotation.y = (float)(-Math.atan2(X.x, X.z));
-        rotation.z = (float)(-Math.atan2(X.y, X.z));
-        rotation.x = 0f;
+        double Rx = Math.atan2(-X.y, X.z);
+        rotation.y = -(float)Math.atan2(X.x, X.z);
+        rotation.x = -(float)Math.atan2(X.y, X.z);
+//        rotation.z = (float)Math.atan2(X.y, X.x);
+
+//        rotation.x = -(float)(Math.cos(yAngle) * xAngle);
+//        rotation.z = - (float)(Math.sin(yAngle) * xAngle);
 
         Vec3 t = ax.getTranslation();
         Vec3 r = ax.getRotation();
